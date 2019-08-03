@@ -5,6 +5,9 @@
 document.addEventListener("DOMContentLoaded", function () {
 	if('classList' in HTMLElement.prototype) {
 		initMode();
+	}
+
+	if(checkStickySupport()) {
 		initStage();
 	}
 
@@ -13,6 +16,14 @@ document.addEventListener("DOMContentLoaded", function () {
 		initRouter();
 	}
 });
+
+
+function checkStickySupport() {
+	var el = document.createElement('a');
+	var style = el.style;
+	style.cssText = "position:sticky;";
+	return style.position.indexOf('sticky')!==-1;
+}
 
 /**
  * Checks every so often to determine whether to display day mode or night mode

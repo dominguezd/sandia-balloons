@@ -1,0 +1,20 @@
+{{- /* This Source Code Form is subject to the terms of the Mozilla Public
+	* License, v. 2.0. If a copy of the MPL was not distributed with this
+	* file, You can obtain one at https://mozilla.org/MPL/2.0/. */ -}}
+{{ define "main" }}
+<div class="cloud">
+	<h1>{{ .Title }}</h1>
+	{{ .Content -}}
+</div>
+<ul class="postings">
+	{{ range first 10 .Pages -}}
+	<li class="cloud">
+		<a href="{{ .RelPermalink }}">
+			<h2>{{ .Title }}</h2>
+			<time datetime="{{.Date}}">{{ .Date.Format "2006/01/02 15:04:05" }}</time>
+		</a>
+		{{ .Summary }}
+	</li>
+	{{- end }}
+</ul>
+{{- end }}

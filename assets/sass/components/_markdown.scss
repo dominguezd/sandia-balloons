@@ -1,0 +1,23 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
+.markdown {
+	img {
+		margin: 0 auto;
+		width: auto;
+		max-height: 20em;
+		display: block;
+		border-radius: 1em;
+		opacity: .9;
+	}
+
+	h1, h2, h3, h4, h5, h6 {
+		margin-top: 1em;
+	}
+
+	p {
+		@media(max-width: 60em) {
+			text-indent: 2em;
+		}
+	}
+}

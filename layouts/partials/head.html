@@ -1,0 +1,27 @@
+{{/* This Source Code Form is subject to the terms of the Mozilla Public
+	* License, v. 2.0. If a copy of the MPL was not distributed with this
+	* file, You can obtain one at https://mozilla.org/MPL/2.0/. */}}
+{{- $style := resources.Get "sass/main.scss" | resources.ToCSS | resources.Minify -}}
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="apple-mobile-web-app-title" content="{{ .Site.Title }}">
+	<meta name="application-name" content="{{ .Site.Title }}">
+	<meta name="theme-color" content="#97e1fb">
+	<meta name="description" content="{{ .Summary }}"> 
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#97e1fb">
+	<link rel="manifest" href="/manifest.json">
+	<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+	<link rel="stylesheet" href="{{ $style.RelPermalink }}">
+	<script src="{{ "js/script.js" | relURL }}"></script>
+	<title>
+		{{- if .IsHome -}}
+			{{- .Site.Title -}}
+		{{- else -}}
+			{{- .Title }} - {{ .Site.Title -}}
+		{{- end -}}
+	</title>
+</head>

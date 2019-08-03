@@ -1,0 +1,27 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
+@import "colors";
+@import "elements";
+@import "components";
+
+body {
+	background-color: $sky-blue;
+	color: $light-font;
+	font-family: 'Raleway', sans-serif;
+	margin: 0;
+	transition: .5s background-color, .5s color;
+
+	&.night {
+		background-color: $night-blue;
+		color: $dark-font;
+	}
+}
+
+body > .cloud {
+	max-width: 75em;
+	margin: 1em auto 0 auto;
+	padding: 2em;
+	position: relative;
+	z-index: 1;
+}

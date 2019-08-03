@@ -1,0 +1,54 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
+@import "../colors";
+
+nav.cloud {
+	padding: 0;
+
+	& > ul {
+		display: flex;
+		justify-content: space-around;
+		flex-flow: row wrap;
+		align-items: stretch;
+		padding: 1em;
+		margin: 0 0 1em 0;
+
+		& > li {
+			list-style: none;
+			flex-grow: 1;
+			&+li {
+				border-left: solid 1px rgba($light-font, .1);
+				
+				.night & {
+					border-left: solid 1px rgba($dark-font, .1);
+				}
+			}
+
+			& > a {
+				color: $dark-red;
+				display: block;
+				font-size: 2em;
+				text-decoration: none;
+				text-align: center;
+				transition: color .5s, background-color .5s;
+				padding: .1em .5em;
+
+				.night & {
+					color: $light-red;
+				}
+
+				@media(max-width: 30em) {
+					& {
+						font-size: 1em;
+					}
+				}
+				@media(max-width: 60em) {
+					& {
+						font-size: 1.5em;
+					}
+				}
+			}
+		}
+	}
+}

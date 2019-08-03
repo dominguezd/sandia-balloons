@@ -1,0 +1,20 @@
+{{/* This Source Code Form is subject to the terms of the Mozilla Public
+	* License, v. 2.0. If a copy of the MPL was not distributed with this
+	* file, You can obtain one at https://mozilla.org/MPL/2.0/. */}}
+{{- $balloon := "images/balloon.svg" | relURL -}}
+{{- $mountain := "images/mountain.svg" | relURL -}}
+<div class="sky" aria-hidden="true">
+	<div class="sky__box">
+		<div class="star"></div>
+		<div class="sky__balloons" data-balloon="{{ $balloon }}"></div>
+	</div>
+</div>
+<img src="{{ $mountain }}" class="ground__mountain" alt="">
+<div class="ground__sand"></div>
+<script>
+	if('serviceWorker' in navigator) {
+		navigator.serviceWorker
+			.register('/service-worker.js')
+			.catch(function (e) {console.error(e)});
+	}
+</script>

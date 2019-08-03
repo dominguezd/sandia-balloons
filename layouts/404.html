@@ -1,0 +1,12 @@
+{{/* This Source Code Form is subject to the terms of the Mozilla Public
+	* License, v. 2.0. If a copy of the MPL was not distributed with this
+	* file, You can obtain one at https://mozilla.org/MPL/2.0/. */}}
+{{ define "main" }}
+<div class="cloud">
+	<h1>Not Found</h1>
+	The page you attempted to go to was not available.
+</div>
+{{ range first 10 .Pages }}
+	{{- .Render "summary" -}}
+{{ end }}
+{{ end }}

@@ -1,0 +1,32 @@
+{{/* This Source Code Form is subject to the terms of the Mozilla Public
+	* License, v. 2.0. If a copy of the MPL was not distributed with this
+	* file, You can obtain one at https://mozilla.org/MPL/2.0/. */}}
+<!DOCTYPE html>
+<html lang="{{ .Language }}">
+{{ partial "head.html" . }}
+<body>
+	<div class="cloud">
+		{{ partial "header.html" . }}
+		<div id="main" role="main">
+			<div class="cloud">
+				<h1>{{ .Title }}</h1>
+				<div class="markdown">
+					{{ .Content }}
+				</div>
+			</div>
+			<ul class="postings">
+				{{ range where .Pages.ByPublishDate.Reverse "Section" .Section }}
+				<li class="cloud">
+					<a href="{{ .RelPermalink }}">
+						<h2>{{ .Title }}</h2>
+						<time datetime="{{.Date}}">{{ .Date.Format "2006/01/02 15:04:05" }}</time>
+					</a>
+					{{ .Summary }}
+				</li>
+				{{ end }}
+			</ul>
+		</div>
+	</div>
+	{{ partial "footer.html" . }}
+</body>
+</html>

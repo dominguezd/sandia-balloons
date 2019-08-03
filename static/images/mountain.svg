@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   width="1990"
+   height="100"
+   viewBox="0 0 2000 100">
+  <g id="layer1">
+    <path
+       style="fill:#b77d43;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 0,70 400,15 550,50 700,0 830,20 890,0 1050,25 1250,0 1400,20 l 100,-20 300,15 200,40 0,50 -2000,0 z"
+       id="mountain"/>
+  </g>
+</svg>

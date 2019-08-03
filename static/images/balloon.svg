@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   width="800"
+   height="1000"
+   viewBox="0 0 800 1000"
+   class="balloon">
+  <g
+     id="base">
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:square;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 375,900 5,60"
+       id="string1"/>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:square;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 390,900 3,60"
+       id="string2"/>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:square;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 410,900 -3,60"
+       id="string3"/>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:square;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 425,900 -5,60"
+       id="string4"/>
+    <path
+       style="fill:#e9bf3f;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 380,960 40,0 -5,40 -30,0 z"
+       id="basket"/>
+    <path
+       style="fill:#94fcd9;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 300,0 C -205,160 8,505 375,900 l 50,0 C 792,505 1010,160 500,0 Z"
+       id="balloon"/>
+  </g>
+</svg>

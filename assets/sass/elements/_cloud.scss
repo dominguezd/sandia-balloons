@@ -1,0 +1,33 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
+@import "../colors";
+
+.cloud {
+	border-radius: .5em;
+	background-color: rgba($white, .7);
+	padding: 1em 2em;
+	transition: .3s background-color;
+
+	.night & {
+		background-color: rgba($black, .5);
+	}
+
+	&+& {
+		margin-top: 1em;
+	}
+
+	.cloud {
+		background-color: rgba($white, .5);
+
+		.night & {
+			background-color: rgba($black, .3);
+		}
+	}
+
+	@media(max-width: 30em) {
+		& {
+			padding: 1.5em;
+		}
+	}
+}

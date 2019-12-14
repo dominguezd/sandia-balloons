@@ -2,6 +2,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 
+/**
+ * @typedef {{x: Number, y: Number}} Coordinate
+ */
+
 document.addEventListener("DOMContentLoaded", function () {
 	if('classList' in HTMLElement.prototype) {
 		initMode();
@@ -17,7 +21,10 @@ document.addEventListener("DOMContentLoaded", function () {
 	}
 });
 
-
+/**
+ * Checks if the browser has sticky support
+ * @returns {boolean} returns true if browser has sticky support
+ */
 function checkStickySupport() {
 	var el = document.createElement('a');
 	var style = el.style;
@@ -348,7 +355,3 @@ function moveTo(elem, from, to, time) {
 		requestAnimationFrame(step)
 	})
 }
-
-/**
- * @typedef {{x: Number, y: Number}} Coordinate
- */

@@ -12,6 +12,7 @@
 				<h1>{{ .Title }}</h1>
 				{{ .Content }}
 			</div>
+			{{ if .Pages }}
 			<ul class="postings">
 				{{ range where .Pages.ByPublishDate.Reverse "Section" .Section }}
 				<li class="cloud">
@@ -23,6 +24,7 @@
 				</li>
 				{{ end }}
 			</ul>
+			{{ end }}
 		</div>
 	</div>
 	{{ partial "footer.html" . }}

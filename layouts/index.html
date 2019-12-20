@@ -6,6 +6,7 @@
 	<h1>{{ .Title }}</h1>
 	{{ .Content -}}
 </div>
+{{ if .Pages }}
 <ul class="postings">
 	{{ range first 10 .Pages -}}
 	<li class="cloud">
@@ -17,4 +18,5 @@
 	</li>
 	{{- end }}
 </ul>
+{{ end }}
 {{- end }}

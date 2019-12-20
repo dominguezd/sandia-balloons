@@ -7,7 +7,9 @@ a {
 	text-decoration: underline;
 	color: $dark-blue;
 
-	.night & {
-		color: $light-blue;
+	@if $supportsNight {
+		.night & {
+			color: $light-blue;
+		}
 	}
 }

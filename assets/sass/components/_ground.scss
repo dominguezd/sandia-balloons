@@ -14,8 +14,10 @@
 	background-color: $light-brown;
 	display: none;
 
-	.night & {
-		background-color: $light-brown;
+	@if $supportsNight {
+		.night & {
+			background-color: $light-brown;
+		}
 	}
 }
 

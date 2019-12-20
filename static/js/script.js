@@ -46,11 +46,21 @@ function initMode() {
  */
 function determineMode() {
 	var hour = (new Date()).getHours();
+	var currentlyNight = document.body.classList.contains('night');
+	var isDay = hour >= 7 && hour < 19;
 
-	if(hour >= 7 && hour < 19) {
-		document.body.classList.remove('night');
-	} else {
-		document.body.classList.add('night');
+	if(currentlyNight === isDay) {
+		if(isDay) {
+			document.body.classList.remove('night');
+		} else {
+			document.body.classList.add('night');
+		}
+
+		if('getComputedStyle' in window && 'querySelector' in document) {
+			var theme = document.querySelector('meta[name="theme-color"]');
+			var style = window.getComputedStyle(document.body);
+			theme.setAttribute("content", style.backgroundColor);
+		}
 	}
 }
 
@@ -355,3 +365,4 @@ function moveTo(elem, from, to, time) {
 		requestAnimationFrame(step)
 	})
 }
+

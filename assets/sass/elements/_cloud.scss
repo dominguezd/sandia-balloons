@@ -9,8 +9,10 @@
 	padding: 1em 2em;
 	transition: .3s background-color;
 
-	.night & {
-		background-color: rgba($black, .5);
+	@if $supportsNight {
+		.night & {
+			background-color: rgba($black, .5);
+		}
 	}
 
 	&+& {
@@ -20,8 +22,10 @@
 	.cloud {
 		background-color: rgba($white, .5);
 
-		.night & {
-			background-color: rgba($black, .3);
+		@if $supportsNight {
+			.night & {
+				background-color: rgba($black, .3);
+			}
 		}
 	}
 

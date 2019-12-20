@@ -1,0 +1,40 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
+
+$supportsNight: false;
+
+@import "colors";
+@import "elements/headings";
+@import "components/markdown";
+
+body {
+	color: $light-font;
+	font-family: 'Raleway', sans-serif;
+}
+
+body > .cloud {
+	margin: 0;
+}
+
+body > .cloud > header {
+	display: none;
+}
+
+.sky {
+	display: none;
+}
+
+.ground__mountain {
+	display: none;
+}
+
+p {
+	text-indent: 2em;
+	margin: 0;
+}
+
+ul {
+	padding-left: 4em;
+	margin: 0;
+}

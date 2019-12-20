@@ -16,9 +16,11 @@
 	background: radial-gradient(circle closest-side at center, $light-yellow 0%, $white 10%, transparent 100%);
 	transform: translateX(-50%) translateY(-100%);
 
-	.night & {
-		max-width: 15%;
-		background: radial-gradient(circle closest-side at center, rgba($white, .8) 0%, rgba($white, .8) 50%, transparent 100%);
+	@if $supportsNight {
+		.night & {
+			max-width: 15%;
+			background: radial-gradient(circle closest-side at center, rgba($white, .8) 0%, rgba($white, .8) 50%, transparent 100%);
+		}
 	}
 }
 

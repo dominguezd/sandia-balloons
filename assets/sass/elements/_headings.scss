@@ -5,9 +5,30 @@
 
 h1, h2, h3, h4, h5, h6 {
 	color: $dark-red;
-	margin: .1em 0;
+	margin: 0 0 .1em 0;
 
-	.night & {
-		color: $light-red;
+	& + p {
+		page-break-before: avoid-page;
+		break-before: avoid-page;
+	}
+
+	@if $supportsNight {
+		.night & {
+			color: $light-red;
+		}
+	}
+
+	* + & {
+		margin-top: .5em;
+	}
+}
+
+h1 {
+	border-bottom: 1px $dark-red solid;
+
+	@if $supportsNight {
+		.night & {
+			border-bottom-color: $light-red;
+		}
 	}
 }

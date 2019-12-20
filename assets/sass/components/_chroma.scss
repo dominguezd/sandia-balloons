@@ -7,9 +7,11 @@
 	// Background
 	color: $light-font;
 	background-color: rgba($white, .6);
-	.night & {
-		color: $dark-font;
-		background-color: rgba($black, .3);
+	@if $supportsNight {
+		.night & {
+			color: $dark-font;
+			background-color: rgba($black, .3);
+		}
 	}
 
 	.chroma {
@@ -19,8 +21,10 @@
 	// Error
 	.err {
 		color: $dark-red;
-		.night & {
-			color: $light-red;
+		@if $supportsNight {
+			.night & {
+				color: $light-red;
+			}
 		}
 	}
 
@@ -48,8 +52,10 @@
 		display: block;
 		width: 100%;
 		color: $light-font;
-		.night & {
-			color: $dark-font;
+		@if $supportsNight {
+			.night & {
+				color: $dark-font;
+			}
 		}
 	}
 
@@ -58,8 +64,10 @@
 		margin-right: 0.4em;
 		padding: 0 0.4em 0 0.4em;
 		color: $light-font;
-		.night & {
-			color: $dark-font;
+		@if $supportsNight {
+			.night & {
+				color: $dark-font;
+			}
 		}
 	}
 
@@ -68,8 +76,10 @@
 		margin-right: 0.4em;
 		padding: 0 0.4em 0 0.4em;
 		color: $light-font;
-		.night & {
-			color: $dark-font;
+		@if $supportsNight {
+			.night & {
+				color: $dark-font;
+			}
 		}
 	}
 
@@ -77,8 +87,10 @@
 	.k {
 		font-weight: bold;
 		color: $dark-blue;
-		.night & {
-			color: $light-blue;
+		@if $supportsNight {
+			.night & {
+				color: $light-blue;
+			}
 		}
 	}
 
@@ -86,8 +98,10 @@
 	.kc {
 		font-weight: bold;
 		color: $dark-blue;
-		.night & {
-			color: $light-blue;
+		@if $supportsNight {
+			.night & {
+				color: $light-blue;
+			}
 		}
 	}
 
@@ -95,8 +109,10 @@
 	.kd {
 		font-weight: bold;
 		color: $dark-blue;
-		.night & {
-			color: $light-blue;
+		@if $supportsNight {
+			.night & {
+				color: $light-blue;
+			}
 		}
 	}
 
@@ -104,8 +120,10 @@
 	.kn {
 		font-weight: bold;
 		color: $dark-red;
-		.night & {
-			color: $light-red;
+		@if $supportsNight {
+			.night & {
+				color: $light-red;
+			}
 		}
 	}
 
@@ -113,8 +131,10 @@
 	.kp {
 		font-weight: bold;
 		color: $dark-blue;
-		.night & {
-			color: $light-blue;
+		@if $supportsNight {
+			.night & {
+				color: $light-blue;
+			}
 		}
 	}
 
@@ -122,8 +142,10 @@
 	.kr {
 		font-weight: bold;
 		color: $dark-blue;
-		.night & {
-			color: $light-blue;
+		@if $supportsNight {
+			.night & {
+				color: $light-blue;
+			}
 		}
 	}
 
@@ -131,336 +153,420 @@
 	.kt {
 		font-weight: bold;
 		color: $dark-blue;
-		.night & {
-			color: $light-blue;
+		@if $supportsNight {
+			.night & {
+				color: $light-blue;
+			}
 		}
 	}
 
 	// NameAttribute
 	.na {
 		color: $dark-yellow;
-		.night & {
-			color: $light-yellow;
+		@if $supportsNight {
+			.night & {
+				color: $light-yellow;
+			}
 		}
 	}
 
 	// NameClass
 	.nc {
 		color: $dark-yellow;
-		.night & {
-			color: $light-yellow;
+		@if $supportsNight {
+			.night & {
+				color: $light-yellow;
+			}
 		}
 	}
 
 	// NameConstant
 	.no {
 		color: $dark-blue;
-		.night & {
-			color: $light-blue;
+		@if $supportsNight {
+			.night & {
+				color: $light-blue;
+			}
 		}
 	}
 
 	// NameDecorator
 	.nd {
 		color: $dark-yellow;
-		.night & {
-			color: $light-yellow;
+		@if $supportsNight {
+			.night & {
+				color: $light-yellow;
+			}
 		}
 	}
 
 	// NameException
 	.ne {
 		color: $dark-yellow;
-		.night & {
-			color: $light-yellow;
+		@if $supportsNight {
+			.night & {
+				color: $light-yellow;
+			}
 		}
 	}
 
 		// NameFunction
 	.nf {
 		color: $dark-yellow;
-		.night & {
-			color: $light-yellow;
+		@if $supportsNight {
+			.night & {
+				color: $light-yellow;
+			}
 		}
 	}
 
 	// NameOther
 	.nx {
 		color: $dark-yellow;
-		.night & {
-			color: $light-yellow;
+		@if $supportsNight {
+			.night & {
+				color: $light-yellow;
+			}
 		}
 	}
 
 	// NameTag
 	.nt {
 		color: $dark-red;
-		.night & {
-			color: $light-red;
+		@if $supportsNight {
+			.night & {
+				color: $light-red;
+			}
 		}
 	}
 
 	// Literal
 	.l {
 		color: $dark-purple;
-		.night & {
-			color: $light-purple;
+		@if $supportsNight {
+			.night & {
+				color: $light-purple;
+			}
 		}
 	}
 
 	// LiteralDate
 	.ld {
 		color: $dark-green;
-		.night & {
-			color: $light-green;
+		@if $supportsNight {
+			.night & {
+				color: $light-green;
+			}
 		}
 	}
 
 	// LiteralString
 	.s {
 		color: $dark-green;
-		.night & {
-			color: $light-green;
+		@if $supportsNight {
+			.night & {
+				color: $light-green;
+			}
 		}
 	}
 
 	// LiteralStringAffix
 	.sa {
 		color: $dark-green;
-		.night & {
-			color: $light-green;
+		@if $supportsNight {
+			.night & {
+				color: $light-green;
+			}
 		}
 	}
 
 	// LiteralStringBacktick
 	.sb {
 		color: $dark-green;
-		.night & {
-			color: $light-green;
+		@if $supportsNight {
+			.night & {
+				color: $light-green;
+			}
 		}
 	}
 
 	// LiteralStringChar
 	.sc {
 		color: $dark-green;
-		.night & {
-			color: $light-green;
+		@if $supportsNight {
+			.night & {
+				color: $light-green;
+			}
 		}
 	}
 
 	// LiteralStringDelimiter
 	.dl {
 		color: $dark-green;
-		.night & {
-			color: $light-green;
+		@if $supportsNight {
+			.night & {
+				color: $light-green;
+			}
 		}
 	}
 
 	// LiteralStringDoc
 	.sd {
 		color: $dark-green;
-		.night & {
-			color: $light-green;
+		@if $supportsNight {
+			.night & {
+				color: $light-green;
+			}
 		}
 	}
 
 	// LiteralStringDouble
 	.s2 {
 		color: $dark-green;
-		.night & {
-			color: $light-green;
+		@if $supportsNight {
+			.night & {
+				color: $light-green;
+			}
 		}
 	}
 
 	// LiteralStringEscape
 	.se {
 		color: $dark-purple;
-		.night & {
-			color: $light-purple;
+		@if $supportsNight {
+			.night & {
+				color: $light-purple;
+			}
 		}
 	}
 
 	// LiteralStringHeredoc
 	.sh {
 		color: $dark-green;
-		.night & {
-			color: $light-green;
+		@if $supportsNight {
+			.night & {
+				color: $light-green;
+			}
 		}
 	}
 
 	// LiteralStringInterpol
 	.si {
 		color: $dark-green;
-		.night & {
-			color: $light-green;
+		@if $supportsNight {
+			.night & {
+				color: $light-green;
+			}
 		}
 	}
 
 	// LiteralStringOther
 	.sx {
 		color: $dark-green;
-		.night & {
-			color: $light-green;
+		@if $supportsNight {
+			.night & {
+				color: $light-green;
+			}
 		}
 	}
 
 	// LiteralStringRegex
 	.sr {
 		color: $dark-green;
-		.night & {
-			color: $light-green;
+		@if $supportsNight {
+			.night & {
+				color: $light-green;
+			}
 		}
 	}
 
 	// LiteralStringSingle
 	.s1 {
 		color: $dark-green;
-		.night & {
-			color: $light-green;
+		@if $supportsNight {
+			.night & {
+				color: $light-green;
+			}
 		}
 	}
 
 	// LiteralStringSymbol
 	.ss {
 		color: $dark-green;
-		.night & {
-			color: $light-green;
+		@if $supportsNight {
+			.night & {
+				color: $light-green;
+			}
 		}
 	}
 
 	// LiteralNumber
 	.m {
 		color: $dark-purple;
-		.night & {
-			color: $light-purple;
+		@if $supportsNight {
+			.night & {
+				color: $light-purple;
+			}
 		}
 	}
 
 	// LiteralNumberBin
 	.mb {
 		color: $dark-purple;
-		.night & {
-			color: $light-purple;
+		@if $supportsNight {
+			.night & {
+				color: $light-purple;
+			}
 		}
 	}
 
 	// LiteralNumberFloat
 	.mf {
 		color: $dark-purple;
-		.night & {
-			color: $light-purple;
+		@if $supportsNight {
+			.night & {
+				color: $light-purple;
+			}
 		}
 	}
 
 	// LiteralNumberHex
 	.mh {
 		color: $dark-purple;
-		.night & {
-			color: $light-purple;
+		@if $supportsNight {
+			.night & {
+				color: $light-purple;
+			}
 		}
 	}
 
 	// LiteralNumberInteger
 	.mi {
 		color: $dark-purple;
-		.night & {
-			color: $light-purple;
+		@if $supportsNight {
+			.night & {
+				color: $light-purple;
+			}
 		}
 	}
 
 	// LiteralNumberIntegerLong
 	.il {
 		color: $dark-purple;
-		.night & {
-			color: $light-purple;
+		@if $supportsNight {
+			.night & {
+				color: $light-purple;
+			}
 		}
 	}
 
 	// LiteralNumberOct
 	.mo {
 		color: $dark-purple;
-		.night & {
-			color: $light-purple;
+		@if $supportsNight {
+			.night & {
+				color: $light-purple;
+			}
 		}
 	}
 
 	// Operator
 	.o {
 		color: $dark-red;
-		.night & {
-			color: $light-red;
+		@if $supportsNight {
+			.night & {
+				color: $light-red;
+			}
 		}
 	}
 
 	// OperatorWord
 	.ow {
 		color: $dark-red;
-		.night & {
-			color: $light-red;
+		@if $supportsNight {
+			.night & {
+				color: $light-red;
+			}
 		}
 	}
 
 	// Comment
 	.c {
 		color: $dark-brown;
-		.night & {
-			color: $light-brown;
+		@if $supportsNight {
+			.night & {
+				color: $light-brown;
+			}
 		}
 	}
 
 	// CommentHashbang
 	.ch {
 		color: $dark-brown;
-		.night & {
-			color: $light-brown;
+		@if $supportsNight {
+			.night & {
+				color: $light-brown;
+			}
 		}
 	}
 
 	// CommentMultiline
 	.cm {
 		color: $dark-brown;
-		.night & {
-			color: $light-brown;
+		@if $supportsNight {
+			.night & {
+				color: $light-brown;
+			}
 		}
 	}
 
 	// CommentSingle
 	.c1 {
 		color: $dark-brown;
-		.night & {
-			color: $light-brown;
+		@if $supportsNight {
+			.night & {
+				color: $light-brown;
+			}
 		}
 	}
 
 	// CommentSpecial
 	.cs {
 		color: $dark-brown;
-		.night & {
-			color: $light-brown;
+		@if $supportsNight {
+			.night & {
+				color: $light-brown;
+			}
 		}
 	}
 
 	// CommentPreproc
 	.cp {
 		color: $dark-brown;
-		.night & {
-			color: $light-brown;
+		@if $supportsNight {
+			.night & {
+				color: $light-brown;
+			}
 		}
 	}
 
 	// CommentPreprocFile
 	.cpf {
 		color: $dark-brown;
-		.night & {
-			color: $light-brown;
+		@if $supportsNight {
+			.night & {
+				color: $light-brown;
+			}
 		}
 	}
 
 	// GenericDeleted
 	.gd {
 		color: $dark-red;
-		.night & {
-			color: $light-red;
+		@if $supportsNight {
+			.night & {
+				color: $light-red;
+			}
 		}
 	}
 
@@ -472,8 +578,10 @@
 	// GenericInserted
 	.gi {
 		color: $dark-yellow;
-		.night & {
-			color: $light-yellow;
+		@if $supportsNight {
+			.night & {
+				color: $light-yellow;
+			}
 		}
 	}
 
@@ -485,8 +593,10 @@
 	// GenericSubheading
 	.gu {
 		color: $dark-brown;
-		.night & {
-			color: $light-brown;
+		@if $supportsNight {
+			.night & {
+				color: $light-brown;
+			}
 		}
 	}
 }

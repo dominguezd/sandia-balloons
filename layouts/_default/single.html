@@ -8,11 +8,9 @@
 	<div class="cloud">
 		{{ partial "header.html" . }}
 		<div id="main" role="main">
-			<div class="cloud">
+			<div class="cloud markdown">
 				<h1>{{ .Title }}</h1>
-				<div class="markdown">
-					{{ .Content }}
-				</div>
+				{{ .Content }}
 			</div>
 		</div>
 	</div>

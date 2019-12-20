@@ -10,14 +10,4 @@
 		border-radius: 1em;
 		opacity: .9;
 	}
-
-	h1, h2, h3, h4, h5, h6 {
-		margin-top: 1em;
-	}
-
-	p {
-		@media(max-width: 60em) {
-			text-indent: 2em;
-		}
-	}
 }

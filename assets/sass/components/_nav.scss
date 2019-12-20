@@ -34,7 +34,8 @@ nav.cloud {
 				text-decoration: none;
 				text-align: center;
 				transition: color .5s, background-color .5s;
-				padding: .1em .5em;
+				margin: -.66em 0;
+				padding: .66em;
 
 				
 				@if $supportsNight {

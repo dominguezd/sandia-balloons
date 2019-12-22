@@ -220,7 +220,7 @@ function initBalloons() {
 	var url = balloonsCanvas.getAttribute('data-balloon');
 
 	fetchXML(url).then(function (svg) {
-		setInterval(function () {
+		function createBalloon() {
 			if(document.hidden) {
 				return;
 			}
@@ -247,7 +247,10 @@ function initBalloons() {
 			setPosition(root, position);
 
 			moveRight(root, rect, position, true);
-		}, 30000);
+		}
+
+		createBalloon()
+		setInterval(createBalloon, 40000);
 	});
 }
 

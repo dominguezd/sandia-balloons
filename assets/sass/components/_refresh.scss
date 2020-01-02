@@ -1,0 +1,77 @@
+.refresh {
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index: 2;
+	transform: translateY(-100%);
+
+	@mixin refresh-animation($name, $field) {
+		@keyframes #{$name} {
+			0% {
+				#{$field}: hsl(0, 50%, 40%);
+			}
+			10% {
+				#{$field}: hsl(252, 50%, 40%);
+			}
+			20% {
+				#{$field}: hsl(144, 50%, 40%);
+			}
+			30% {
+				#{$field}: hsl(36, 50%, 40%);
+			}
+			40% {
+				#{$field}: hsl(288, 50%, 40%);
+			}
+			50% {
+				#{$field}: hsl(180, 50%, 40%);
+			}
+			60% {
+				#{$field}: hsl(72, 50%, 40%);
+			}
+			70% {
+				#{$field}: hsl(324, 50%, 40%);
+			}
+			80% {
+				#{$field}: hsl(216, 50%, 40%);
+			}
+			90% {
+				#{$field}: hsl(108, 50%, 40%);
+			}
+			100% {
+				#{$field}: hsl(0, 50%, 40%);
+			}
+		}
+	}
+
+	@include refresh-animation(refresh-icon-cycle, background-color);
+	@include refresh-animation(refresh-balloon-cycle, fill);
+
+	.refresh__icon {
+		margin: 5em auto 0 auto;
+		height: 5em;
+		width: 5em;
+		position: relative;
+	}
+
+	.refresh__icon:empty {
+		border-radius: 50%;
+		background-color: hsl(0, 0%, 70%);
+	}
+
+	.refresh__icon.refresh__icon--pulled:empty {
+		animation: refresh-icon-cycle 5s infinite;
+	}
+
+	.refresh__icon .balloon {
+		max-width: 100%;
+		max-height: 100%;
+	}
+
+	.refresh__icon .balloon path:last-child {
+		fill: hsl(0, 0%, 70%);
+	}
+
+	.refresh__icon.refresh__icon--pulled .balloon path:last-child {
+		animation: refresh-balloon-cycle 5s infinite;
+	}
+}

@@ -2,10 +2,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 
-/**
- * @typedef {{x: Number, y: Number}} Coordinate
- */
-
 document.addEventListener("DOMContentLoaded", function () {
 	if('classList' in HTMLElement.prototype) {
 		initMode();
@@ -16,8 +12,11 @@ document.addEventListener("DOMContentLoaded", function () {
 	}
 
 	if('Promise' in window) {
+		var pager = new Pager();
+
 		initBalloons();
-		initRouter();
+		initRouter(pager);
+		initRefresh(pager);
 	}
 });
 
@@ -47,7 +46,7 @@ function initMode() {
 function determineMode() {
 	var hour = (new Date()).getHours();
 	var currentlyNight = document.body.classList.contains('night');
-	var isDay = hour >= 7 && hour < 19;
+	var isDay = hour >= 6 && hour < 18;
 
 	if(currentlyNight === isDay) {
 		if(isDay) {
@@ -68,8 +67,7 @@ function determineMode() {
  * Overrides all internal links so that all content will be loaded onto the page
  * without forcing a page refresh action.
  */
-function initRouter() {
-	var pager = new Pager();
+function initRouter(pager) {
 	var mainContent = document.getElementById('main');
 
 	document.addEventListener('click', function (e) {
@@ -118,6 +116,7 @@ function removePageContent(elem) {
 	for(var child = elem.firstChild; child != null; child = elem.firstChild) {
 		elem.removeChild(child);
 	}
+	document.body.classList.remove('stage--ready');
 }
 
 /**
@@ -133,6 +132,7 @@ function tranferPageContent(src, dst) {
 	}
 
 	document.title = src.title;
+	document.body.classList.add('stage--ready');
 }
 
 /**
@@ -240,10 +240,11 @@ function initBalloons() {
 
 			var canvasSize = balloonsCanvas.getBoundingClientRect();
 			var rect = root.getBoundingClientRect();
-			var position = {
+			var position = Coordinate.from({
 				x: -rect.width,
 				y: randomBetween(0, canvasSize.height - rect.height)
-			};
+			});
+
 			setPosition(root, position);
 
 			moveRight(root, rect, position, true);
@@ -317,8 +318,8 @@ function moveRight(elem, rect, initial, up) {
 	}
 
 	var end = up
-		? {x: initial.x + rect.width * 2, y: initial.y - rect.height / 3}
-		: {x: initial.x + rect.width * 2, y: initial.y + rect.height / 3};
+		? initial.add(Coordinate.create(rect.width * 2, -rect.height / 3))
+		: initial.add(Coordinate.create(rect.width * 2, rect.height / 3));
 
 	return moveTo(elem, initial, end, 16000).then(function () {
 		return moveRight(elem, rect, end, !up);
@@ -331,7 +332,7 @@ function moveRight(elem, rect, initial, up) {
  * @param {Coordinate} coord
  */
 function setPosition(elem, coord) {
-	elem.style.transform = 'translate(' + coord.x + 'px, ' + coord.y + 'px)'
+	elem.style.transform = 'translate(' + coord.x + 'px, ' + coord.y + 'px)';
 }
 
 /**
@@ -350,15 +351,14 @@ function moveTo(elem, from, to, time) {
 			var taken = (now - start)
 
 			if(taken >= time) {
-				setPosition(elem, to.x, to.y)
+				setPosition(elem, to.x, to.y);
 				resolve(to)
-				return
+				return;
 			}
 
-			var current = {
-				x: ((to.x - from.x) * (taken/time)) + from.x,
-				y: ((to.y - from.y) * (taken/time)) + from.y,
-			}
+			var current = to.subtract(from)
+				.multiply(taken/time)
+				.add(from);
 
 			setPosition(elem, current)
 
@@ -369,3 +369,225 @@ function moveTo(elem, from, to, time) {
 	})
 }
 
+function wait(milliseconds) {
+	return new Promise(function (resolve) {
+		setTimeout(function () {
+			resolve(milliseconds);
+		}, milliseconds);
+	});
+}
+
+function waitFor(milliseconds) {
+	return function () {
+		return wait(milliseconds)
+	}
+}
+
+function initRefresh(pager) {
+	/** @type {HTMLDivElement} */
+	var tab = document.querySelector('.refresh');
+	/** @type {HTMLDivElement} */
+	var icon = tab.querySelector('.refresh__icon');
+	/** @type {HTMLDivElement} */
+	var mainContent = document.getElementById('main');
+	/** @type {number} */
+	var height = tab.getBoundingClientRect().height;
+	/** @type {Coordinate} */
+	var iconPosition = Coordinate.ZERO;
+	/** @type {"none"|"pull"|"scroll"} */
+	var gesture = "none";
+	/** @type {Map<number, Coordinate>} */
+	var startPointerPositions = new Map();
+
+	function positionIcon(y) {
+		iconPosition = Coordinate.withY(y);
+		setPosition(icon, iconPosition);
+	}
+
+	function resetIcon() {
+		var promise = moveTo(icon, iconPosition, Coordinate.ZERO, 300)
+			.then(hideIcon);
+			iconPosition = Coordinate.ZERO;
+		return promise;
+	}
+
+	function stablizeIcon() {
+		var dest = Coordinate.withY(height);
+		var promise = moveTo(icon, iconPosition, dest, 100);
+		iconPosition = dest;
+		return promise;
+	}
+
+	function hideIcon() {
+		icon.style.transform = "";
+	}
+
+	/**
+	 * 
+	 * @param {TouchEvent} e 
+	 */
+	function startTouch(e) {
+		if(e.defaultPrevented) {
+			return;
+		}
+
+		for(var i = 0; i < e.changedTouches.length; ++i) {
+			var touch = e.changedTouches[i];
+
+			var newPointer = Coordinate.fromClient(touch);
+
+			startPointerPositions.set(touch.identifier, newPointer);
+		}
+	}
+
+	/**
+	 * 
+	 * @param {TouchEvent} e 
+	 */
+	function moveTouch(e) {
+		if(e.defaultPrevented || e.touches.length > 1) {
+			return;
+		}
+
+		for(var i = 0; i < e.changedTouches.length; ++i) {
+			var touch = e.changedTouches[i];
+
+			var pointerStart = startPointerPositions.get(touch.identifier);
+			var client = Coordinate.fromClient(touch);
+	
+			if(gesture == "none") {
+				if(window.scrollY == 0 && client.y > pointerStart.y) {
+					gesture = "pull";
+				} else {
+					gesture = "scroll";
+				}
+			}
+	
+			if(gesture == "pull") {
+				e.preventDefault();
+
+				if(client.y < pointerStart.y) {
+					hideIcon();
+					icon.classList.remove('refresh__icon--pulled');
+				} else if(client.y > pointerStart.y+height) {
+					positionIcon(height + ((client.y - pointerStart.y) - height)/4);
+					icon.classList.add('refresh__icon--pulled');
+				} else {
+					positionIcon(client.y - pointerStart.y);
+					icon.classList.remove('refresh__icon--pulled');
+				}
+			}
+		}
+	}
+
+	/**
+	 * 
+	 * @param {TouchEvent} e 
+	 */
+	function endTouch(e) {
+		if(e.defaultPrevented) {
+			return;
+		}
+
+		for(var i = 0; i < e.changedTouches.length; ++i) {
+			var touch = e.changedTouches[i];
+
+			if(gesture == "pull") {
+				if(iconPosition.y >= height) {
+					let url = window.location.href;
+					Promise.all([pager.load(url), stablizeIcon().then(waitFor(1500))]).then(function (args) {
+						var page = args[0];
+						removePageContent(mainContent);
+						return wait(100).then(function () {
+							tranferPageContent(page, mainContent);
+							window.scrollTo({left: 0, top: 0})
+							window.dispatchEvent(new UIEvent('resize'));
+						}).then(resetIcon);
+					}).catch(function (e) {
+						console.error(e)
+						window.location.reload()
+					});
+				} else {
+					resetIcon();
+				}
+			}
+
+			startPointerPositions.delete(touch.identifier);
+		}
+		if(e.touches.length == 0) {
+			gesture = "none";
+		} else if (e.touches.length == 1) {
+			gesture = "touch";
+		}
+	}
+
+	document.body.addEventListener('touchstart', startTouch);
+	document.body.addEventListener('touchmove', moveTouch, {passive: false});
+	document.body.addEventListener('touchend', endTouch);
+	document.body.addEventListener('touchcancel', endTouch);
+
+	var url = icon.getAttribute('data-icon-href');
+	fetchXML(url).then(function (svg) {
+		svg.getElementById('balloon').style.fill = '';
+		icon.appendChild(svg.documentElement);
+	});
+}
+
+function Coordinate(x, y) {
+	this.x = x;
+	this.y = y;
+}
+
+Coordinate.ZERO = new Coordinate(0, 0);
+
+Coordinate.withX = function (x) {
+	return new Coordinate(x, 0)
+}
+
+Coordinate.withY = function (y) {
+	return new Coordinate(0, y);
+}
+
+Coordinate.create = function (x, y) {
+	return new Coordinate(x, y);
+};
+
+Coordinate.from = function (obj) {
+	return new Coordinate(obj.x, obj.y)
+}
+
+Coordinate.fromClient = function (event) {
+	return new Coordinate(event.clientX, event.clientY);
+}
+
+Coordinate.prototype.add = function (that) {
+	if(!(that instanceof Coordinate)) {
+		throw new TypeError("Needs to be a Coordinate");
+	}
+
+	return new Coordinate(this.x + that.x, this.y + that.y);
+};
+
+Coordinate.prototype.subtract = function (that) {
+	if(!(that instanceof Coordinate)) {
+		throw new TypeError("Needs to be a Coordinate");
+	}
+
+	return this.add(that.negate());
+};
+
+Coordinate.prototype.negate = function () {
+	return new Coordinate(-this.x, -this.y);
+};
+
+Coordinate.prototype.distance = function () {
+	return Math.sqrt(this.x*this.x + this.y*this.y);
+}
+
+Coordinate.prototype.multiply = function (factor) {
+	return new Coordinate(this.x*factor, this.y*factor);
+}
+
+Coordinate.prototype.divide = function (factor) {
+	return new Coordinate(this.x/factor, this.y/factor);
+}

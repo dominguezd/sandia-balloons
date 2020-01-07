@@ -3,28 +3,38 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 @import "../colors";
 
-.star {
-	visibility: hidden;
-	transform: translateY(-100%);
-	transition: transform 1s;
-	position: absolute;
-	top: 0;
-	left: 0;
-	height: 80em;
-	width: 80em;
-	max-width: 50%;
-	background: radial-gradient(circle closest-side at center, $light-yellow 0%, $white 10%, transparent 100%);
-	transform: translateX(-50%) translateY(-100%);
+.sky {
 
-	@if $supportsNight {
-		.night & {
-			max-width: 15%;
-			background: radial-gradient(circle closest-side at center, rgba($white, .8) 0%, rgba($white, .8) 50%, transparent 100%);
+	.star {
+		visibility: hidden;
+		transition: transform 1s;
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 80em;
+		width: 80em;
+		max-width: 50%;
+		background: radial-gradient(circle closest-side at center, $light-yellow 0%, $white 10%, transparent 100%);
+		transform: translateX(-50%) translateY(-100%);
+
+		@if $supportsNight {
+			.night & {
+				max-width: 15%;
+				background: radial-gradient(circle closest-side at center, rgba($white, .8) 0%, rgba($white, .8) 50%, transparent 100%);
+			}
+		}
+
+		.stage--ready & {
+			visibility: visible;
+			transform: translateX(-50%) translateY(-50%);
 		}
 	}
-}
 
-.stage--ready .star {
-	visibility: visible;
-	transform: translateX(-50%) translateY(-50%);
+	.balloon {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		height: auto;
+		transform: translateX(-100%);
+	}
 }

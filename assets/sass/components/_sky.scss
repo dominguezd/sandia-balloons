@@ -11,10 +11,43 @@
 		width: 100%;
 		overflow: hidden;
 		margin-top: -100vh;
+	}
 
-		.sky__balloons {
-			opacity: .6;
-			height: 100%;
+	.sky__balloons {
+		opacity: .6;
+		height: 100%;
+
+		svg.balloon {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			height: auto;
+			transform: translateX(-100%);
+		}
+	}
+
+	.sky__star {
+		visibility: hidden;
+		transition: transform 1s;
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 80em;
+		width: 80em;
+		max-width: 50%;
+		background: radial-gradient(circle closest-side at center, $light-yellow 0%, $white 10%, transparent 100%);
+		transform: translateX(-50%) translateY(-100%);
+
+		@if $supportsNight {
+			.night & {
+				max-width: 15%;
+				background: radial-gradient(circle closest-side at center, rgba($white, .8) 0%, rgba($white, .8) 50%, transparent 100%);
+			}
+		}
+
+		.stage--ready & {
+			visibility: visible;
+			transform: translateX(-50%) translateY(-50%);
 		}
 	}
 }

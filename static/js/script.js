@@ -39,14 +39,16 @@ function initMode() {
 	setInterval(determineMode, 60000);
 }
 
+var dayStart = 6;
+var nightStart = 18;
 /**
- * Gets the current time and if it is between 07:00 and 19:00, it is day mode
- * If is before 07:00 or after 19:00, it is night mode
+ * Gets the current time and if it is between `dayStart` and `nightStart`, it is day mode
+ * If is before `dayStart` or after `nightStart`, it is night mode
  */
 function determineMode() {
 	var hour = (new Date()).getHours();
 	var currentlyNight = document.body.classList.contains('night');
-	var isDay = hour >= 6 && hour < 18;
+	var isDay = hour >= dayStart && hour < nightStart;
 
 	if(currentlyNight === isDay) {
 		if(isDay) {

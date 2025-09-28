@@ -7,5 +7,8 @@ A theme for Hugo.
 - Single Page Application
 - Progressive Enchancement of above features, so that if user can't use certain features, they are disabled.
 
+## Dependencies
+- Requires Dart SASS to build. Instructions can be found here: https://gohugo.io/functions/css/sass/#dart-sass
+
 ## License
 All code should be available under the Mozilla Public License 2.0

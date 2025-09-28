@@ -2,10 +2,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 
-var CACHE_NAME = 'dominguezd-v1.0'
+var CACHE_NAME = 'dominguezd-v1.1.0'
 
 var URLS = [
-	'/sass/main.min.css',
+	'/css/screen.css',
+	'/css/print.css',
 	'/js/script.js',
 	'/images/mountain.svg',
 	'/images/balloon.svg',

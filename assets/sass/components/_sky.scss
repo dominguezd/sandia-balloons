@@ -2,20 +2,27 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 .sky {
-	position: sticky;
-	bottom: 0;
+	visibility: hidden;
+
+	.html--ready.html--sticky & {
+		visibility: visible;
+	}
 
 	.sky__box {
-		position: absolute;
+		overflow-x: hidden;
+		position: fixed;
 		height: 100vh;
 		width: 100%;
-		overflow: hidden;
-		margin-top: -100vh;
 	}
 
 	.sky__balloons {
 		opacity: .6;
 		height: 100%;
+		position: relative;
+		
+		div {
+			position: absolute;
+		}
 
 		svg.balloon {
 			position: absolute;
@@ -26,28 +33,48 @@
 		}
 	}
 
-	.sky__star {
-		visibility: hidden;
-		transition: transform 1s;
-		position: absolute;
-		top: 0;
-		left: 0;
-		height: 80em;
-		width: 80em;
-		max-width: 50%;
-		background: radial-gradient(circle closest-side at center, $light-yellow 0%, $white 10%, transparent 100%);
-		transform: translateX(-50%) translateY(-100%);
+	.sky__celestial {
+		position: relative;
+		top: 2rem;
+		left: 2rem;
 
-		@if $supportsNight {
-			.night & {
-				max-width: 15%;
-				background: radial-gradient(circle closest-side at center, rgba($white, .8) 0%, rgba($white, .8) 50%, transparent 100%);
-			}
+		.sky__sun {
+			position: absolute;
+			top: 0;
+			left: 0;
+			transition: transform 1s;
+			height: 40rem;
+			width: 40rem;
+			max-width: 50%;
+			background: radial-gradient(circle closest-side at center, $light-yellow 0%, $white 10%, transparent 100%);
+			transform: translateX(-50%) translateY(-100%);
 		}
 
-		.stage--ready & {
-			visibility: visible;
-			transform: translateX(-50%) translateY(-50%);
+		.sky__moon {
+			position: absolute;
+			top: 0;
+			left: 0;
+			transition: transform 1s;
+			height: 20rem;
+			width: 20rem;
+			max-width: 15%;
+			background: radial-gradient(circle closest-side at center, rgba($white, .8) 0%, rgba($white, .8) 80%, transparent 100%);
+			transform: translateX(-50%) translateY(-100%);
+		}
+
+		@if $supportsNight {
+			.html--ready.html--sticky & .sky__sun {
+				transform: translateX(-50%) translateY(-50%);
+			}
+			.html--ready.html--sticky.night & .sky__sun {
+				transform: translateX(-50%) translateY(-100%);
+			}
+			.html--ready.html--sticky & .sky__moon {
+				transform: translateX(-50%) translateY(-100%);
+			}
+			.html--ready.html--sticky.night & .sky__moon {
+				transform: translateX(-50%) translateY(-50%);
+			}
 		}
 	}
 }

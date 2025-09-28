@@ -1,26 +1,17 @@
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
-.ground__mountain {
-	position: sticky;
-	bottom: 0;
-	display: none;
-	width: 100%;
-	z-index: 2;
-}
 
-.ground__sand {
-	height: 10em;
+.ground {
+	height: 10rem;
 	background-color: $light-brown;
-	display: none;
+	display: block;
+	z-index: 3;
+	position: relative;
 
 	@if $supportsNight {
 		.night & {
 			background-color: $light-brown;
 		}
 	}
-}
-
-.stage--ready .ground__mountain, .stage--ready .ground__sand {
-	display: block;
 }

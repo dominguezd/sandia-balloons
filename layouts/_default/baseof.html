@@ -6,10 +6,12 @@
 {{ partial "head.html" . }}
 <body>
 	{{ partial "refresh.html" . }}
-	<div class="cloud">
-		{{ partial "header.html" . }}
-		<div id="main" role="main">
-		{{- block "main" . }}{{ end }}
+	<div class="stage">
+		<div class="cloud">
+			{{ partial "header.html" . }}
+			<div id="main" role="main">
+			{{- block "main" . }}{{ end }}
+			</div>
 		</div>
 	</div>
 	{{ partial "footer.html" . }}

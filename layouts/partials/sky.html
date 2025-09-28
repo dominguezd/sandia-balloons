@@ -1,0 +1,13 @@
+{{/* This Source Code Form is subject to the terms of the Mozilla Public
+	* License, v. 2.0. If a copy of the MPL was not distributed with this
+	* file, You can obtain one at https://mozilla.org/MPL/2.0/. */}}
+{{- $balloon := "images/balloon.svg" | relURL -}}
+<div class="sky" aria-hidden="true">
+	<div class="sky__box">
+		<div class="sky__celestial">
+			<div class="sky__sun"></div>
+			<div class="sky__moon"></div>
+		</div>
+		<div class="sky__balloons" data-balloon="{{ $balloon }}"></div>
+	</div>
+</div>

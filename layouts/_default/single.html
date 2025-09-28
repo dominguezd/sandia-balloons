@@ -6,12 +6,15 @@
 {{ partial "head.html" . }}
 <body>
 	{{ partial "refresh.html" . }}
-	<div class="cloud">
-		{{ partial "header.html" . }}
-		<div id="main" role="main">
-			<div class="cloud markdown">
-				<h1>{{ .Title }}</h1>
-				{{ .Content }}
+	<div class="stage">
+		<div class="cloud">
+			{{ partial "header.html" . }}
+			<div id="main" role="main">
+				<div class="cloud markdown">
+					<h1>{{ .Title }}</h1>
+					Posted: <time datetime="{{.Date}}">{{ .Date.Format "2006/01/02 15:04:05" }}</time>
+					{{ .Content }}
+				</div>
 			</div>
 		</div>
 	</div>

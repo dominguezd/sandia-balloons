@@ -5,8 +5,16 @@ description = "A view over the Sandia Mountains as hot air balloons fly in the s
 homepage = "https://d-dominguez.com/"
 tags = ["hot-air", "balloon", "desert", "mountain", "sandia"]
 features = []
-min_version = "0.41"
+min_version = "0.114"
 
 [author]
   name = "Daniel J Dominguez"
   homepage = "https://d-dominguez.com/"
+
+[markup]
+  [markup.highlight]
+    anchorLineNos = false
+    codeFences = true
+    lineNos = true
+    lineNumbersInTable = true
+    noClasses = false

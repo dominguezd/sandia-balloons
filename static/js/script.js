@@ -2,13 +2,35 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 
+var DAYLIGHT_CHECK = 60000
+var DAY_START = 6;
+var NIGHT_START = 18;
+var MAX_BALLOONS = 20;
+var MORE_BALLOONS_MONTH = 10;
+var MORE_BALLOONS = 2609;
+var STANDARD_BALLOONS = 2609;
+var BALLOON_MOVEMENT = 6793;
+var MIN_BALLOON_WIDTH = 2;
+var MAX_BALLOON_WIDTH = 10;
+var MIN_HUE = 0;
+var MAX_HUE = 360;
+var MIN_SATURATION = 90;
+var MAX_SATURATION = 100;
+var MIN_LIGHT = 25;
+var MAX_LIGHT = 75;
+
 document.addEventListener("DOMContentLoaded", function () {
-	if('classList' in HTMLElement.prototype) {
-		initMode();
+	if(!('classList' in HTMLElement.prototype)) {
+		return;
 	}
 
+	initMode();
+	
+	document.body.classList.add('html--ready');
+	document.body.classList.add('page--ready');
+
 	if(checkStickySupport()) {
-		initStage();
+		document.body.classList.add('html--sticky');
 	}
 
 	if('Promise' in window) {
@@ -36,19 +58,17 @@ function checkStickySupport() {
  */
 function initMode() {
 	determineMode();
-	setInterval(determineMode, 60000);
+	setInterval(determineMode, DAYLIGHT_CHECK);
 }
 
-var dayStart = 6;
-var nightStart = 18;
 /**
- * Gets the current time and if it is between `dayStart` and `nightStart`, it is day mode
- * If is before `dayStart` or after `nightStart`, it is night mode
+ * Gets the current time and if it is between `DAY_START` and `NIGHT_START`, it is day mode
+ * If is before `DAY_START` or after `NIGHT_START`, it is night mode
  */
 function determineMode() {
 	var hour = (new Date()).getHours();
 	var currentlyNight = document.body.classList.contains('night');
-	var isDay = hour >= dayStart && hour < nightStart;
+	var isDay = hour >= DAY_START && hour < NIGHT_START;
 
 	if(currentlyNight === isDay) {
 		if(isDay) {
@@ -118,7 +138,7 @@ function removePageContent(elem) {
 	for(var child = elem.firstChild; child != null; child = elem.firstChild) {
 		elem.removeChild(child);
 	}
-	document.body.classList.remove('stage--ready');
+	document.body.classList.remove('page--ready');
 }
 
 /**
@@ -134,7 +154,7 @@ function tranferPageContent(src, dst) {
 	}
 
 	document.title = src.title;
-	document.body.classList.add('stage--ready');
+	document.body.classList.add('html--ready');
 }
 
 /**
@@ -187,47 +207,23 @@ function findNearestLink(e) {
 	}
 	return null;
 }
-
-/**
- * Adds the class `stage--ready` when the page has been determined to have been sufficiently loaded.
- * Gives the main cloud margin so that the mountain is at the bottom.
- * Adds a resize listener to that it can resize appropiately.
- */
-function initStage() {
-	/** @type {HTMLElement} */
-	var mainCloud = document.querySelector('body > .cloud');
-	/** @type {HTMLElement} */
-	var mountain = document.querySelector('body > .ground__mountain');
-
-	function resize() {
-		var mainRect = mainCloud.getBoundingClientRect();		
-		var mountainRect = mountain.getBoundingClientRect();
-		var margin = (window.innerHeight - mainRect.height) + mountainRect.height;
-
-		mountain.style.marginTop = -mountainRect.height + "px";
-		mainCloud.style.marginBottom = (margin > 200 ? margin : 200) + "px";
-	}
-
-	resize();
-	window.addEventListener('resize', resize);
-
-	document.body.classList.add('stage--ready');
-}
-
 /**
  * Fetches a balloon SVG and uses that to populate the sky with balloons.
  */
 function initBalloons() {
+	/** @type {HTMLElement} */
 	var balloonsCanvas = document.querySelector('.sky .sky__balloons');
 	var url = balloonsCanvas.getAttribute('data-balloon');
+	setBalloonCanvasHeight(balloonsCanvas);
+	var balloonHeightRange = MAX_BALLOON_WIDTH - MIN_BALLOON_WIDTH;
 
 	fetchXML(url).then(function (svg) {
 		function createBalloon() {
-			if(document.hidden) {
+			if(document.hidden || randomBetween(0, 1) < .5) {
 				return;
 			}
 
-			if(balloonsCanvas.children.length > 20) {
+			if(balloonsCanvas.children.length > MAX_BALLOONS) {
 				return;
 			}
 
@@ -236,26 +232,76 @@ function initBalloons() {
 
 			/** @type {HTMLElement} */
 			var root = svg.documentElement.cloneNode(true);
-			root.style.width = randomBetween(4, 12) + 'em';
+			var frame = document.createElement('div');
+			var n = randomBetween(0, 1);
+			var size = 1-(n*n);
+			var width = (size*balloonHeightRange)+MIN_BALLOON_WIDTH;
+			root.style.width = width + 'vw';
 
-			balloonsCanvas.appendChild(root);
+			frame.appendChild(root);
+
+			frame.style.top = ((1-size)*100) + "%"
+
+			var added = false;
+			for(var i = 0; i < balloonsCanvas.children.length; ++i) {
+				var balloon = balloonsCanvas.children.item(i);
+				if(width < balloon.dataset.size) {
+					balloonsCanvas.insertBefore(frame, balloon);
+					added = true;
+					break;
+				}
+			}
+			if(!added) {
+				balloonsCanvas.appendChild(frame);
+			}
 
 			var canvasSize = balloonsCanvas.getBoundingClientRect();
 			var rect = root.getBoundingClientRect();
 			var position = Coordinate.from({
-				x: -rect.width,
-				y: randomBetween(0, canvasSize.height - rect.height)
+				x: -width,
+				y: 0
 			});
+
+			root.dataset.width = width;
+			frame.dataset.size = size;
+
+			if(!('ratio' in balloonsCanvas.dataset)) {
+				var ratio = (+root.attributes.height.value)/(+root.attributes.width.value);
+				balloonsCanvas.dataset.ratio = ratio;
+			}
 
 			setPosition(root, position);
 
 			moveRight(root, rect, position, true);
 		}
 
-		createBalloon()
-		setInterval(createBalloon, 40000);
+		var balloonRate = (new Date()).getMonth() == MORE_BALLOONS_MONTH ? MORE_BALLOONS : STANDARD_BALLOONS;
+
+		createBalloon();
+		setInterval(createBalloon, balloonRate);
 	});
 }
+
+/**
+ * @param {HTMLElement} balloonsCanvas
+ * Adds a resize listener to that it can resize appropiately.
+ */
+function setBalloonCanvasHeight(balloonsCanvas) {
+	/** @type {HTMLElement} */
+	var mountain = document.querySelector('body .mountain__range');
+
+	function resize() {
+		var mountainRect = mountain.getBoundingClientRect();
+		var boxHeight = window.innerHeight - (mountainRect.height + (window.innerWidth * (MIN_BALLOON_WIDTH/100)));
+
+		balloonsCanvas.dataset.height = boxHeight;
+		balloonsCanvas.style.height = boxHeight + "px";
+	}
+
+	resize();
+	window.addEventListener('resize', resize);
+}
+
 
 /**
  * Fetches a XML document from the specified url.
@@ -289,9 +335,9 @@ function fetchXML(url) {
  * @returns {String} random color in the form of HSL
  */
 function generateColor() {
-	var hue = Math.round(randomBetween(0, 360));
-	var saturation = Math.round(randomBetween(90, 100));
-	var light = randomBetween(25, 75);
+	var hue = Math.round(randomBetween(MIN_HUE, MAX_HUE));
+	var saturation = Math.round(randomBetween(MIN_SATURATION, MAX_SATURATION));
+	var light = randomBetween(MIN_LIGHT, MAX_LIGHT);
 	return 'hsl(' + hue + ', ' + saturation + '%, ' + light + '%)';
 }
 
@@ -309,21 +355,24 @@ function randomBetween(min, max) {
  * Sets up a element so that it will drift to the right until it reaches the end of the screen,
  * at which point, it will be removed from the DOM
  * @param {HTMLElement} elem - Target element to be moved
- * @param {ClientRect|DOMRect} rect - Bounding rectangle of the element
+ * @param {DOMRect} rect - Bounding rectangle of the element
  * @param {Coordinate} initial - Current location of the Target element
  * @param {boolean} up - Determines whether to drift up or down
  */
 function moveRight(elem, rect, initial, up) {
-	if(initial.x > window.innerWidth) {
-		elem.parentElement.removeChild(elem);
+	var width = +elem.dataset.width;
+	if(initial.x > 100) {
+		var frame = elem.parentElement;
+		frame.parentElement.removeChild(frame);
+
 		return Promise.resolve();
 	}
 
 	var end = up
-		? initial.add(Coordinate.create(rect.width * 2, -rect.height / 3))
-		: initial.add(Coordinate.create(rect.width * 2, rect.height / 3));
+		? initial.add(Coordinate.create(width * 2, -rect.height / 3))
+		: initial.add(Coordinate.create(width * 2, rect.height / 3));
 
-	return moveTo(elem, initial, end, 16000).then(function () {
+	return moveTo(elem, initial, end, BALLOON_MOVEMENT).then(function () {
 		return moveRight(elem, rect, end, !up);
 	})
 }
@@ -334,7 +383,7 @@ function moveRight(elem, rect, initial, up) {
  * @param {Coordinate} coord
  */
 function setPosition(elem, coord) {
-	elem.style.transform = 'translate(' + coord.x + 'px, ' + coord.y + 'px)';
+	elem.style.transform = 'translate(' + coord.x + 'vw, ' + coord.y + 'px)';
 }
 
 /**

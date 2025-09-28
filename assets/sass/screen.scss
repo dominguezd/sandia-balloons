@@ -11,7 +11,7 @@ $supportsNight: true;
 body {
 	background-color: $sky-blue;
 	color: $light-font;
-	font-family: 'Raleway', sans-serif;
+	font-family: sans-serif;
 	margin: 0;
 	transition: .5s background-color, .5s color;
 
@@ -19,12 +19,34 @@ body {
 		background-color: $night-blue;
 		color: $dark-font;
 	}
-}
 
-body > .cloud {
-	max-width: 75em;
-	margin: 1em auto 0 auto;
-	padding: 2em;
-	position: relative;
-	z-index: 1;
+	& > .stage {
+		min-height: 100vh;
+		z-index: 1;
+		padding: 1em 0 20em 0;
+		position: relative;
+
+		& > .cloud {
+			max-width: 50rem;
+			margin: 0 auto;
+		}
+	}
+
+	& > .mountain {
+		height: 0;
+		z-index: 2;
+		position: sticky;
+		width: 100%;
+		bottom: 0;
+		pointer-events: none;
+	}
+
+	& > .sky {
+		height: 0;
+		z-index: 0;
+		position: sticky;
+		width: 100%;
+		bottom: 0;
+		transform: translateY(-100vh);
+	}
 }

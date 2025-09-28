@@ -1,8 +1,6 @@
 {{/* This Source Code Form is subject to the terms of the Mozilla Public
 	* License, v. 2.0. If a copy of the MPL was not distributed with this
 	* file, You can obtain one at https://mozilla.org/MPL/2.0/. */}}
-{{- $screen := resources.Get "sass/screen.scss" | resources.ToCSS | resources.Minify -}}
-{{- $print := resources.Get "sass/print.scss" | resources.ToCSS | resources.Minify -}}
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,9 +13,31 @@
 	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#97e1fb">
 	<link rel="manifest" href="/manifest.json">
-	<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-	<link rel="stylesheet" href="{{ $screen.RelPermalink }}" media="screen">
-	<link rel="stylesheet" href="{{ $print.RelPermalink }}" media="print">
+	<!-- <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet"> -->
+    {{ with resources.Get "sass/screen.scss" -}}
+	    {{- $opts := dict "transpiler" "dartsass" "targetPath" "css/screen.css" -}}
+		{{- with . | toCSS $opts -}}
+			{{- if hugo.IsDevelopment -}}
+				<link rel="stylesheet" href="{{ .RelPermalink }}" media="screen">
+			{{- else -}}
+				{{- with . | minify | fingerprint -}}
+					<link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous" media="screen">
+				{{- end -}}
+			{{- end -}}
+		{{- end -}}
+	{{- end }}
+	{{ with resources.Get "sass/print.scss" -}}
+		{{- $opts := dict "transpiler" "dartsass" "targetPath" "css/print.css" -}}
+		{{- with . | toCSS $opts -}}
+			{{- if hugo.IsDevelopment -}}
+				<link rel="stylesheet" href="{{ .RelPermalink }}" media="print">
+			{{- else -}}
+				{{- with . | minify | fingerprint -}}
+					<link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous" media="print">
+				{{- end -}}
+			{{- end -}}
+		{{- end -}}
+	{{- end -}}
 	<script src="{{ "js/script.js" | relURL }}"></script>
 	<title>
 		{{- if .IsHome -}}

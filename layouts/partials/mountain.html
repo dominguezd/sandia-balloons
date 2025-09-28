@@ -1,7 +1,7 @@
 {{/* This Source Code Form is subject to the terms of the Mozilla Public
 	* License, v. 2.0. If a copy of the MPL was not distributed with this
 	* file, You can obtain one at https://mozilla.org/MPL/2.0/. */}}
-{{ partial "sky.html" . -}}
-{{- partial "mountain.html" . -}}
-{{- partial "ground.html" . -}}
-{{- partial "serviceWorker.html" . }}
+{{- $mountain := "images/mountain.svg" | relURL -}}
+<div class="mountain" aria-hidden="true">
+	<img src="{{ $mountain }}" class="mountain__range" alt="">
+</div>

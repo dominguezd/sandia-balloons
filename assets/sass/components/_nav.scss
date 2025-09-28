@@ -1,7 +1,10 @@
-/* This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
-@import "../colors";
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+@use "../colors";
+
+$supportsNight: false !default;
 
 nav.cloud {
 	padding: 0;
@@ -18,17 +21,17 @@ nav.cloud {
 			list-style: none;
 			flex-grow: 1;
 			&+li {
-				border-left: solid 1px rgba($light-font, .1);
+				border-left: solid 1px rgba(colors.$light-font, .1);
 				
 				@if $supportsNight {
 					.night & {
-						border-left: solid 1px rgba($dark-font, .1);
+						border-left: solid 1px rgba(colors.$dark-font, .1);
 					}
 				}
 			}
 
 			& > a {
-				color: $dark-red;
+				color: colors.$dark-red;
 				display: block;
 				font-size: 2em;
 				text-decoration: none;
@@ -40,7 +43,7 @@ nav.cloud {
 				
 				@if $supportsNight {
 					.night & {
-						color: $light-red;
+						color: colors.$light-red;
 					}
 				}
 				@media(max-width: 40rem) {

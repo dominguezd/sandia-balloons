@@ -1,17 +1,21 @@
-/* This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+@use "../colors";
+
+$supportsNight: false !default;
 
 .ground {
 	height: 10rem;
-	background-color: $light-brown;
+	background-color: colors.$light-brown;
 	display: block;
 	z-index: 3;
 	position: relative;
 
 	@if $supportsNight {
 		.night & {
-			background-color: $light-brown;
+			background-color: colors.$light-brown;
 		}
 	}
 }

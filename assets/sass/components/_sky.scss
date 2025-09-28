@@ -1,6 +1,11 @@
-/* This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+@use "../colors";
+
+$supportsNight: false !default;
+
 .sky {
 	visibility: hidden;
 
@@ -46,7 +51,7 @@
 			height: 40rem;
 			width: 40rem;
 			max-width: 50%;
-			background: radial-gradient(circle closest-side at center, $light-yellow 0%, $white 10%, transparent 100%);
+			background: radial-gradient(circle closest-side at center, colors.$light-yellow 0%, colors.$white 10%, transparent 100%);
 			transform: translateX(-50%) translateY(-100%);
 		}
 
@@ -58,7 +63,7 @@
 			height: 20rem;
 			width: 20rem;
 			max-width: 15%;
-			background: radial-gradient(circle closest-side at center, rgba($white, .8) 0%, rgba($white, .8) 80%, transparent 100%);
+			background: radial-gradient(circle closest-side at center, rgba(colors.$white, .8) 0%, rgba(colors.$white, .8) 80%, transparent 100%);
 			transform: translateX(-50%) translateY(-100%);
 		}
 

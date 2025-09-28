@@ -4,20 +4,20 @@
 
 $supportsNight: true;
 
-@import "colors";
-@import "elements";
-@import "components";
+@use "colors";
+@use "elements";
+@use "components";
 
 body {
-	background-color: $sky-blue;
-	color: $light-font;
+	background-color: colors.$sky-blue;
+	color: colors.$light-font;
 	font-family: sans-serif;
 	margin: 0;
 	transition: .5s background-color, .5s color;
 
 	&.night {
-		background-color: $night-blue;
-		color: $dark-font;
+		background-color: colors.$night-blue;
+		color: colors.$dark-font;
 	}
 
 	& > .stage {

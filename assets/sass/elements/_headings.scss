@@ -1,10 +1,13 @@
-/* This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
-@import "../colors";
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+@use "../colors";
+
+$supportsNight: false !default;
 
 h1, h2, h3, h4, h5, h6 {
-	color: $dark-red;
+	color: colors.$dark-red;
 	margin: 0 0 .1em 0;
 
 	& + p {
@@ -14,7 +17,7 @@ h1, h2, h3, h4, h5, h6 {
 
 	@if $supportsNight {
 		.night & {
-			color: $light-red;
+			color: colors.$light-red;
 		}
 	}
 
@@ -24,15 +27,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-	border-bottom: 1px $dark-red solid;
+	border-bottom: 1px colors.$dark-red solid;
 
 	@if $supportsNight {
 		.night & {
-			border-bottom-color: $light-red;
+			border-bottom-color: colors.$light-red;
 		}
 	}
-}
-
-code {
-	font-size: 1rem;
 }

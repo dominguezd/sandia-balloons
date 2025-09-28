@@ -1,17 +1,20 @@
-/* This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
-@import "../colors";
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+@use "../colors";
+
+$supportsNight: false !default;
 
 .cloud {
 	border-radius: .5em;
-	background-color: rgba($white, .7);
+	background-color: rgba(colors.$white, .7);
 	padding: 1em 2em;
 	transition: .3s background-color;
 
 	@if $supportsNight {
 		.night & {
-			background-color: rgba($black, .5);
+			background-color: rgba(colors.$black, .5);
 		}
 	}
 
@@ -20,11 +23,11 @@
 	}
 
 	.cloud {
-		background-color: rgba($white, .5);
+		background-color: rgba(colors.$white, .5);
 
 		@if $supportsNight {
 			.night & {
-				background-color: rgba($black, .3);
+				background-color: rgba(colors.$black, .3);
 			}
 		}
 	}

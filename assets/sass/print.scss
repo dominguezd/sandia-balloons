@@ -4,13 +4,13 @@
 
 $supportsNight: false;
 
-@import "colors";
-@import "elements/headings";
-@import "components/markdown";
-@import "components/chroma";
+@use "colors";
+@use "elements/headings";
+@use "components/markdown";
+@use "components/chroma";
 
 body {
-	color: $light-font;
+	color: colors.$light-font;
 	font-family: sans-serif;
 	font-size: 12px;
 }

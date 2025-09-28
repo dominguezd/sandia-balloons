@@ -5,8 +5,8 @@
 $supportsNight: true;
 
 @use "colors";
-@use "elements";
-@use "components";
+@use "elements" with ($supportsNight: $supportsNight);
+@use "components" with ($supportsNight: $supportsNight);
 
 body {
 	background-color: colors.$sky-blue;

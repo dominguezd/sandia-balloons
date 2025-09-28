@@ -1,11 +1,14 @@
-/* This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
-@use "components/nav";
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+$supportsNight: false !default;
+
+@use "components/nav" with ($supportsNight: $supportsNight);
 @use "components/markdown";
 @use "components/postings";
-@use "components/sky";
+@use "components/sky" with ($supportsNight: $supportsNight);
 @use "components/mountain";
-@use "components/ground";
+@use "components/ground" with ($supportsNight: $supportsNight);
 @use "components/refresh";
-@use "components/chroma";
+@use "components/chroma" with ($supportsNight: $supportsNight);

@@ -7,8 +7,12 @@ A theme for Hugo.
 - Single Page Application
 - Progressive Enchancement of above features, so that if user can't use certain features, they are disabled.
 
-## Dependencies
-- Requires Dart SASS to build. Instructions can be found here: https://gohugo.io/functions/css/sass/#dart-sass
+## Syntax Hightlighting
+Custom theme for syntax hightlighting has been implemented, but you would need to put the following in your `config.toml` file
+```toml
+[markup.highlight]
+noClasses = false
+```
 
 ## License
 All code should be available under the Mozilla Public License 2.0

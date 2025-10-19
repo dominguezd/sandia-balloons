@@ -3,18 +3,16 @@ license = "MPL-2.0"
 licenselink = "https://github.com/dominguezd/sandia-mountaina/blob/master/LICENSE"
 description = "A view over the Sandia Mountains as hot air balloons fly in the sky"
 homepage = "https://d-dominguez.com/"
-tags = ["hot-air", "balloon", "desert", "mountain", "sandia"]
+tags = [
+  "hot-air",
+  "balloon",
+  "desert",
+  "mountain",
+  "sandia"
+]
 features = []
 min_version = "0.114"
 
 [author]
-  name = "Daniel J Dominguez"
-  homepage = "https://d-dominguez.com/"
-
-[markup]
-  [markup.highlight]
-    anchorLineNos = false
-    codeFences = true
-    lineNos = true
-    lineNumbersInTable = true
-    noClasses = false
+name = "Daniel J Dominguez"
+homepage = "https://d-dominguez.com/"

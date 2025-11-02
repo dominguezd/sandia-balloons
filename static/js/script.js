@@ -8,7 +8,7 @@ var NIGHT_START = 18;
 var MAX_BALLOONS = 20;
 var MORE_BALLOONS_MONTH = 10;
 var MORE_BALLOONS = 2609;
-var STANDARD_BALLOONS = 2609;
+var STANDARD_BALLOONS = 4987;
 var BALLOON_MOVEMENT = 6793;
 var MIN_BALLOON_WIDTH = 2;
 var MAX_BALLOON_WIDTH = 10;
@@ -275,7 +275,8 @@ function initBalloons() {
 			moveRight(root, rect, position, true);
 		}
 
-		var balloonRate = (new Date()).getMonth() == MORE_BALLOONS_MONTH ? MORE_BALLOONS : STANDARD_BALLOONS;
+		var balloonRate = (new Date()).getMonth()+1 == MORE_BALLOONS_MONTH ? MORE_BALLOONS : STANDARD_BALLOONS;
+		console.log(balloonRate);
 
 		createBalloon();
 		setInterval(createBalloon, balloonRate);

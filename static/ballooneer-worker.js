@@ -2,9 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 
-var CACHE_NAME = 'dominguezd-v1.1.0'
-
-var URLS = [
+const URLS = [
 	'/css/screen.css',
 	'/css/print.css',
 	'/js/script.js',
@@ -21,14 +19,35 @@ var URLS = [
 	'/manifest.json',
 	'/mstile-150x150.png',
 	'/safari-pinned-tab.svg'
-]
+];
+
+const build = "20251101195406592"
+const namespace = "ballooneer-v"
+const CACHE_NAME = 'ballooneer-v' + build;
+
+async function exec(func) {
+	let events = [];
+	func(events);
+	await Promise.all(events);
+}
+
+
+async function install(events) {
+	const cache = await caches.open(CACHE_NAME);
+	for(let url of URLS) {
+		events.push(cache.add(url));
+	}
+
+	const keys = await caches.keys();
+	for(let key of keys) {
+		if(key.startsWith(namespace) && key != CACHE_NAME) {
+			events.push(caches.delete(key));
+		}
+	}
+}
 
 this.addEventListener('install', function (event) {
-	event.waitUntil(
-		caches.open(CACHE_NAME).then(function (cache) {
-			return cache.addAll(URLS);
-		})
-	);
+	event.waitUntil(exec(install));
 });
 
 this.addEventListener('fetch', function (event) {

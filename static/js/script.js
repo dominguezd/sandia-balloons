@@ -78,8 +78,9 @@ function determineMode() {
 		}
 
 		if('getComputedStyle' in window && 'querySelector' in document) {
+			var skyBox = document.querySelector(".sky__box");
 			var theme = document.querySelector('meta[name="theme-color"]');
-			var style = window.getComputedStyle(document.body);
+			var style = window.getComputedStyle(skyBox);
 			theme.setAttribute("content", style.backgroundColor);
 		}
 	}
@@ -255,10 +256,9 @@ function initBalloons() {
 				balloonsCanvas.appendChild(frame);
 			}
 
-			var canvasSize = balloonsCanvas.getBoundingClientRect();
 			var rect = root.getBoundingClientRect();
 			var position = Coordinate.from({
-				x: -width,
+				x: -width - randomBetween(0, width),
 				y: 0
 			});
 

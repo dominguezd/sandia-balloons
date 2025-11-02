@@ -9,6 +9,6 @@ $supportsNight: false !default;
 @use "components/postings";
 @use "components/sky" with ($supportsNight: $supportsNight);
 @use "components/mountain";
-@use "components/ground" with ($supportsNight: $supportsNight);
+@use "components/ground";
 @use "components/refresh";
 @use "components/chroma" with ($supportsNight: $supportsNight);

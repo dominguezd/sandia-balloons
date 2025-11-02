@@ -9,14 +9,12 @@ $supportsNight: true;
 @use "components" with ($supportsNight: $supportsNight);
 
 body {
-	background-color: colors.$sky-blue;
 	color: colors.$light-font;
+	background-color: colors.$light-brown;
 	font-family: sans-serif;
 	margin: 0;
-	transition: .5s background-color, .5s color;
 
 	&.night {
-		background-color: colors.$night-blue;
 		color: colors.$dark-font;
 	}
 

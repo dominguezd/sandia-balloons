@@ -18,7 +18,14 @@ $supportsNight: false !default;
 		position: fixed;
 		height: 100vh;
 		width: 100%;
+		background-color: colors.$sky-blue;
+		transition: .5s background-color, .5s color;
+
+		.night & {
+			background-color: colors.$night-blue;
+		}
 	}
+
 
 	.sky__balloons {
 		opacity: .6;

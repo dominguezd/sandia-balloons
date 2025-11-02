@@ -4,18 +4,9 @@
 
 @use "../colors";
 
-$supportsNight: false !default;
-
 .ground {
 	height: 10rem;
-	background-color: colors.$light-brown;
 	display: block;
 	z-index: 3;
 	position: relative;
-
-	@if $supportsNight {
-		.night & {
-			background-color: colors.$light-brown;
-		}
-	}
 }

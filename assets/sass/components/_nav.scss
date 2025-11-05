@@ -8,6 +8,7 @@ $supportsNight: false !default;
 
 nav.cloud {
 	padding: 0;
+	margin: 0 0 1em 0;
 
 	& > ul {
 		display: flex;
@@ -15,7 +16,7 @@ nav.cloud {
 		flex-flow: row wrap;
 		align-items: stretch;
 		padding: 1em;
-		margin: 0 0 1em 0;
+		margin: 0;
 
 		& > li {
 			list-style: none;

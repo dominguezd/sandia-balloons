@@ -276,7 +276,6 @@ function initBalloons() {
 		}
 
 		var balloonRate = (new Date()).getMonth()+1 == MORE_BALLOONS_MONTH ? MORE_BALLOONS : STANDARD_BALLOONS;
-		console.log(balloonRate);
 
 		createBalloon();
 		setInterval(createBalloon, balloonRate);

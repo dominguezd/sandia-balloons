@@ -21,7 +21,7 @@ const URLS = [
 	'/safari-pinned-tab.svg'
 ];
 
-const build = "20251101195406592"
+const build = "20251101195406593"
 const namespace = "ballooneer-v"
 const CACHE_NAME = 'ballooneer-v' + build;
 

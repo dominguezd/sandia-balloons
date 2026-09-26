@@ -8,17 +8,18 @@ $supportsNight: false !default;
 
 .cloud {
 	border-radius: .5em;
-	background-color: rgba(colors.$white, .7);
+	background-color: rgba(colors.$white, .3);
 	border-style: solid;
 	border-color: rgba(colors.$white, .9);
 	border-width: 1px 0;
 	padding: 1em 2em;
 	transition: .3s background-color;
+	backdrop-filter: blur(8px);
 
 	@if $supportsNight {
 		.night & {
-			background-color: rgba(colors.$black, .5);
-			border-color: rgba(colors.$black, .9);
+			background-color: rgba(colors.$off-black, .3);
+			border-color: rgba(colors.$off-black, .9);
 		}
 	}
 
@@ -27,11 +28,11 @@ $supportsNight: false !default;
 	}
 
 	.cloud {
-		background-color: rgba(colors.$white, .5);
+		background-color: rgba(colors.$white, .6);
 
 		@if $supportsNight {
 			.night & {
-				background-color: rgba(colors.$black, .3);
+				background-color: rgba(colors.$off-black, .6);
 			}
 		}
 	}

@@ -8,6 +8,11 @@ $supportsNight: true;
 @use "elements" with ($supportsNight: $supportsNight);
 @use "components" with ($supportsNight: $supportsNight);
 
+html, body {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 body {
 	color: colors.$light-font;
 	background-color: colors.$light-brown;

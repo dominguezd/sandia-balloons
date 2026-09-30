@@ -7,17 +7,17 @@ var DAY_START = 6;
 var NIGHT_START = 18;
 var MAX_BALLOONS = 20;
 var MORE_BALLOONS_MONTH = 10;
-var MORE_BALLOONS = 2609;
-var STANDARD_BALLOONS = 4987;
-var BALLOON_MOVEMENT = 6793;
+var MORE_BALLOONS = 1801;
+var STANDARD_BALLOONS = 3823;
+var BALLOON_MOVEMENT = 4517;
 var MIN_BALLOON_WIDTH = 2;
 var MAX_BALLOON_WIDTH = 10;
 var MIN_HUE = 0;
 var MAX_HUE = 360;
-var MIN_SATURATION = 90;
-var MAX_SATURATION = 100;
-var MIN_LIGHT = 25;
-var MAX_LIGHT = 75;
+var MIN_CHROMA = 0.08;
+var MAX_CHROMA = 0.16;
+var MIN_LIGHTNESS = 0.65;
+var MAX_LIGHTNESS = 0.85;
 
 document.addEventListener("DOMContentLoaded", function () {
 	if(!('classList' in HTMLElement.prototype)) {
@@ -335,10 +335,10 @@ function fetchXML(url) {
  * @returns {String} random color in the form of HSL
  */
 function generateColor() {
+	var lightness = randomBetween(MIN_LIGHTNESS, MAX_LIGHTNESS);
+	var chroma = randomBetween(MIN_CHROMA, MAX_CHROMA);
 	var hue = Math.round(randomBetween(MIN_HUE, MAX_HUE));
-	var saturation = Math.round(randomBetween(MIN_SATURATION, MAX_SATURATION));
-	var light = randomBetween(MIN_LIGHT, MAX_LIGHT);
-	return 'hsl(' + hue + ', ' + saturation + '%, ' + light + '%)';
+	return 'oklch(' + lightness + ' ' + chroma + ' ' + hue + ')';
 }
 
 /**

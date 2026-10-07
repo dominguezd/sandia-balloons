@@ -5,7 +5,6 @@
 const URLS = [
 	'/css/screen.css',
 	'/css/print.css',
-	'/js/script.js',
 	'/images/mountain.svg',
 	'/images/balloon.svg',
 	'/?standalone=true',

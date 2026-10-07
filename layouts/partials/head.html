@@ -38,7 +38,21 @@
 			{{- end -}}
 		{{- end -}}
 	{{- end -}}
-	<script src="{{ "js/script.js" | relURL }}"></script>
+	{{ with resources.Get "js/main.js" }}
+		{{$opts := dict
+			"minify" (cond hugo.IsDevelopment false true)
+			"sourceMap" (cond hugo.IsDevelopment "linked" "none")
+		}}
+		{{ with . | js.Build $opts }}
+			{{ if hugo.IsDevelopment }}
+			<script src="{{ .RelPermalink }}"></script>
+			{{ else }}
+			{{ with . | fingerprint }}
+				<script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous"></script>
+			{{ end }}
+			{{ end }}
+		{{ end }}
+	{{ end }}
 	<title>
 		{{- if .IsHome -}}
 			{{- .Site.Title -}}

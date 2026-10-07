@@ -7,12 +7,6 @@
 $supportsNight: false !default;
 
 .sky {
-	visibility: hidden;
-
-	.html--ready.html--sticky & {
-		visibility: visible;
-	}
-
 	.sky__box {
 		overflow-x: hidden;
 		position: fixed;
@@ -75,16 +69,16 @@ $supportsNight: false !default;
 		}
 
 		@if $supportsNight {
-			.html--ready.html--sticky & .sky__sun {
+			& .sky__sun {
 				transform: translateX(-50%) translateY(-50%);
 			}
-			.html--ready.html--sticky.night & .sky__sun {
+			.night & .sky__sun {
 				transform: translateX(-50%) translateY(-100%);
 			}
-			.html--ready.html--sticky & .sky__moon {
+			& .sky__moon {
 				transform: translateX(-50%) translateY(-100%);
 			}
-			.html--ready.html--sticky.night & .sky__moon {
+			.night & .sky__moon {
 				transform: translateX(-50%) translateY(-50%);
 			}
 		}

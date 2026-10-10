@@ -1,5 +1,6 @@
 import Coordinate from "./coordinate.js";
-import fetchXML from "./fetchXML.js";
+import { fetchHTML, fetchXML } from "./fetch.js";
+import { moveTo, setPosition } from "./animate.js";
 
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -19,39 +20,37 @@ function waitFor(milliseconds) {
 	}
 }
 
-export function init(pager) {
+export async function init() {
 	/** @type {HTMLDivElement} */
-	var tab = document.querySelector('.refresh');
+	const tab = document.querySelector('.refresh');
 	/** @type {HTMLDivElement} */
-	var icon = tab.querySelector('.refresh__icon');
+	const icon = tab.querySelector('.refresh__icon');
 	/** @type {HTMLDivElement} */
-	var mainContent = document.getElementById('main');
+	const mainContent = document.getElementById('main');
 	/** @type {number} */
-	var height = tab.getBoundingClientRect().height;
+	const height = tab.getBoundingClientRect().height;
 	/** @type {Coordinate} */
-	var iconPosition = Coordinate.ZERO;
+	let iconPosition = Coordinate.ZERO;
 	/** @type {"none"|"pull"|"scroll"} */
-	var gesture = "none";
+	let gesture = "none";
 	/** @type {Map<number, Coordinate>} */
-	var startPointerPositions = new Map();
+	const startPointerPositions = new Map();
 
 	function positionIcon(y) {
 		iconPosition = Coordinate.withY(y);
 		setPosition(icon, iconPosition);
 	}
 
-	function resetIcon() {
-		var promise = moveTo(icon, iconPosition, Coordinate.ZERO, 300)
-			.then(hideIcon);
-			iconPosition = Coordinate.ZERO;
-		return promise;
+	async function resetIcon() {
+		await moveTo(icon, iconPosition, Coordinate.ZERO, 300);
+		hideIcon();
+		iconPosition = Coordinate.ZERO;
 	}
 
-	function stablizeIcon() {
-		var dest = Coordinate.withY(height);
-		var promise = moveTo(icon, iconPosition, dest, 100);
+	async function stablizeIcon() {
+		const dest = Coordinate.withY(height);
+		await moveTo(icon, iconPosition, dest, 100);
 		iconPosition = dest;
-		return promise;
 	}
 
 	function hideIcon() {
@@ -67,10 +66,10 @@ export function init(pager) {
 			return;
 		}
 
-		for(var i = 0; i < e.changedTouches.length; ++i) {
-			var touch = e.changedTouches[i];
+		for(let i = 0; i < e.changedTouches.length; ++i) {
+			const touch = e.changedTouches[i];
 
-			var newPointer = Coordinate.fromClient(touch);
+			const newPointer = Coordinate.fromClient(touch);
 
 			startPointerPositions.set(touch.identifier, newPointer);
 		}
@@ -85,11 +84,11 @@ export function init(pager) {
 			return;
 		}
 
-		for(var i = 0; i < e.changedTouches.length; ++i) {
-			var touch = e.changedTouches[i];
+		for(let i = 0; i < e.changedTouches.length; ++i) {
+			const touch = e.changedTouches[i];
 
-			var pointerStart = startPointerPositions.get(touch.identifier);
-			var client = Coordinate.fromClient(touch);
+			const pointerStart = startPointerPositions.get(touch.identifier);
+			const client = Coordinate.fromClient(touch);
 	
 			if(gesture == "none") {
 				if(window.scrollY == 0 && client.y > pointerStart.y) {
@@ -120,29 +119,29 @@ export function init(pager) {
 	 * 
 	 * @param {TouchEvent} e 
 	 */
-	function endTouch(e) {
+	async function endTouch(e) {
 		if(e.defaultPrevented) {
 			return;
 		}
 
-		for(var i = 0; i < e.changedTouches.length; ++i) {
-			var touch = e.changedTouches[i];
+		for(let i = 0; i < e.changedTouches.length; ++i) {
+			const touch = e.changedTouches[i];
 
 			if(gesture == "pull") {
 				if(iconPosition.y >= height) {
 					let url = window.location.href;
-					Promise.all([pager.load(url), stablizeIcon().then(waitFor(1500))]).then(function (args) {
-						var page = args[0];
+					try {
+						const [page] = await Promise.all([fetchHTML(url), stablizeIcon().then(waitFor(1500))])
 						removePageContent(mainContent);
-						return wait(100).then(function () {
-							tranferPageContent(page, mainContent);
-							window.scrollTo({left: 0, top: 0})
-							window.dispatchEvent(new UIEvent('resize'));
-						}).then(resetIcon);
-					}).catch(function (e) {
+						await wait(100);
+						tranferPageContent(page, mainContent);
+						window.scrollTo({left: 0, top: 0})
+						window.dispatchEvent(new UIEvent('resize'));
+						await resetIcon();
+					} catch (e) {
 						console.error(e)
 						window.location.reload()
-					});
+					};
 				} else {
 					resetIcon();
 				}
@@ -162,9 +161,8 @@ export function init(pager) {
 	document.body.addEventListener('touchend', endTouch);
 	document.body.addEventListener('touchcancel', endTouch);
 
-	var url = icon.getAttribute('data-icon-href');
-	fetchXML(url).then(function (svg) {
-		svg.getElementById('balloon').style.fill = '';
-		icon.appendChild(svg.documentElement);
-	});
+	const url = icon.getAttribute('data-icon-href');
+	const svg = await fetchXML(url)
+	svg.getElementById('balloon').style.fill = '';
+	icon.appendChild(svg.documentElement);
 }

@@ -3,7 +3,6 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 
 import * as Mode from "./mode.js"
-import Pager from "./pager.js"
 import * as Router from "./router.js"
 import * as Balloons from "./balloons.js"
 import * as Refresh from "./refresh.js"
@@ -15,10 +14,8 @@ document.addEventListener("DOMContentLoaded", function () {
 	document.body.classList.add('page--ready');
 
 	if('Promise' in window) {
-		var pager = new Pager();
-
 		Balloons.init();
-		Router.init(pager);
-		Refresh.init(pager);
+		Router.init();
+		Refresh.init();
 	}
 });

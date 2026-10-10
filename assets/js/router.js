@@ -2,11 +2,13 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 
+ import { fetchHTML } from "./fetch.js";
+
 /**
  * Overrides all internal links so that all content will be loaded onto the page
  * without forcing a page refresh action.
  */
-export function init(pager) {
+export function init() {
 	var mainContent = document.getElementById('main');
 
 	document.addEventListener('click', function (e) {
@@ -24,7 +26,7 @@ export function init(pager) {
 		removePageContent(mainContent);
 
 		var url = link.href;
-		pager.load(url).then(function (page) {
+		fetchHTML(url).then(function (page) {
 			if(url !== window.location.href) {
 				history.pushState('', page.title, url);
 			}

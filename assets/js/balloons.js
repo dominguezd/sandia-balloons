@@ -1,3 +1,7 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
+
 import Coordinate from "./coordinate.js";
 import { fetchXML } from "./fetch.js";
 import { moveTo, setPosition } from "./animate.js";
@@ -15,10 +19,6 @@ const MIN_CHROMA = 0.08;
 const MAX_CHROMA = 0.16;
 const MIN_LIGHTNESS = 0.65;
 const MAX_LIGHTNESS = 0.85;
-
-/* This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 
 /**
  * Fetches a balloon SVG and uses that to populate the sky with balloons.

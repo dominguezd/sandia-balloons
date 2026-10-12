@@ -14,12 +14,6 @@ const BALLOON_INTERVAL = 9000;
 const MIN_BALLOON_WIDTH = 2;
 const MAX_BALLOON_WIDTH = 10;
 const BALLOON_HEIGHT_RANGE = MAX_BALLOON_WIDTH - MIN_BALLOON_WIDTH;
-const MIN_HUE = 0;
-const MAX_HUE = 360;
-const MIN_CHROMA = 0.08;
-const MAX_CHROMA = 0.16;
-const MIN_LIGHTNESS = 65;
-const MAX_LIGHTNESS = 85;
 const BALLOON_SPAWN_EVENT = "balloon:spawn";
 
 /**
@@ -55,7 +49,7 @@ export class SkyBalloonsModule {
 		signaler.init();
 
 		const balloonGenerator = new HotAirBalloonGenerator(
-			balloonsCanvas.getAttribute('data-balloon').split(',')
+			balloonsCanvas.getAttribute('data-balloons').split(',')
 		);
 
 		balloonsCanvas.addEventListener(BALLOON_SPAWN_EVENT, async () => {
@@ -117,15 +111,23 @@ class HotAirBalloonGenerator {
 	 * @returns {Promise<SVGSVGElement>}
 	 */
 	async generate() {
-		const color = generateColor();
 		const template = await this.__chooseTemplate();
 
 		/** @type {SVGSVGElement} */
 		const svg = template.documentElement.cloneNode(true);
 
+		const lightness = generateFromRange(svg.dataset.lightnessRange);
+		const chroma = generateFromRange(svg.dataset.chromaRange);
+		const hue = randomBetween(0, 360);
+
+		const color = new Oklch(lightness, chroma, hue);
+
 		const sectionsToColor = svg.querySelectorAll('.color');
 		for(let section of sectionsToColor ) {
-			section.style.fill = color.toCSS();
+			const lightness = readAdjust(section.dataset.lightnessAdjust);
+			const chroma = readAdjust(section.dataset.chromaAdjust);
+			const hue = readAdjust(section.dataset.hueAdjust);
+			section.style.fill = color.adjust(lightness, chroma, hue).toCSS();
 		}
 
 		return svg;
@@ -143,7 +145,7 @@ class HotAirBalloonGenerator {
 		} else if(this.__cache.length == 1) {
 			return await this.__cache[0];
 		} else {
-			return await this.__cache[Math.floor(Math.random() * this.urls.length)];
+			return await this.__cache[Math.floor(Math.random() * this.__cache.length)];
 		}
 	}
 }
@@ -166,19 +168,6 @@ function setBalloonCanvasHeight(balloonsCanvas) {
 
 	resize();
 	window.addEventListener('resize', resize);
-}
-
-/**
- * Generates a random color that has a good amount of saturation and light
- * @returns {Oklch} random color in the form of HSL
- */
-function generateColor() {
-	const color = new Oklch(
-		randomBetween(MIN_LIGHTNESS, MAX_LIGHTNESS),
-		randomBetween(MIN_CHROMA, MAX_CHROMA),
-		Math.round(randomBetween(MIN_HUE, MAX_HUE))
-	);
-	return color;
 }
 
 /**
@@ -229,4 +218,31 @@ async function moveRight(elem, rect, initial, speed, up) {
 	await moveTo(elem, initial, end, speed);
 	await moveRight(elem, rect, end, speed, !up);
 	return;
+}
+
+function readAdjust(number) {
+	if(typeof number === "undefined") {
+		return 0
+	}
+	const convert = Number.parseFloat(number);
+	return Number.isNaN(convert)
+		? 0
+		: convert;
+}
+
+/**
+ * 
+ * @param {string} range 
+ * @returns 
+ */
+function generateFromRange(range) {
+	if(!range.includes(',')) {
+		return readAdjust(range);
+	}
+
+	const pair = range.split(',');
+	if(pair.length != 2) {
+		throw new Error("Badly formatted range.");
+	}
+	return randomBetween(readAdjust(pair[0]), readAdjust(pair[1]));
 }

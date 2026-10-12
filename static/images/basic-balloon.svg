@@ -7,7 +7,9 @@
    width="800"
    height="1000"
    viewBox="0 0 800 1000"
-   class="balloon">
+   class="balloon"
+   data-chroma-range=".08,.16"
+   data-lightness-range="65,85">
   <g
      id="base">
     <path

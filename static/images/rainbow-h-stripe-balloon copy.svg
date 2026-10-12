@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
+
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   width="800"
+   height="1000"
+   viewBox="0 0 800 1000"
+   class="balloon"
+   data-chroma-range=".2,.3"
+   data-lightness-range="75,85">
+  <g
+     id="base">
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:square;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 375,900 5,60"
+       id="string1" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:square;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 390,900 3,60"
+       id="string2" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:square;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 410,900 -3,60"
+       id="string3" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:square;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 425,900 -5,60"
+       id="string4" />
+    <path
+       style="fill:#e9bf3f;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 380,960 40,0 -5,40 -30,0 z"
+       id="basket" />
+    <path
+       style="fill:#b000b0;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 245.69531,754.48242 C 285.65625,802.03125 329.125,850.625 375,900 h 50 c 45.875,-49.375 89.42187,-97.96875 129.50977,-145.51758 -298.94225,-1.51336 -1.50781,0.45722 -308.81446,0 z"
+       id="balloon-8"
+       class="color" />
+    <path
+       style="fill:#0000c0;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 137.4375,615.23437 c 31.84375,45.19532 68.29687,91.69922 108.25781,139.24805 39.96094,47.54883 268.72656,47.54883 308.81446,0 40.08789,-47.54883 76.71679,-94.05273 108.75585,-139.24805 -511.14918,-4.43631 -34.09875,-5.46122 -525.82812,0 z"
+       id="balloon-7"
+       class="color"
+       data-hue-adjust="-51" />
+    <path
+       style="fill:#00b0b0;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 56.835937,483.83789 c 21.523438,42.31445 48.757813,86.20117 80.601563,131.39648 31.84375,45.19532 493.78906,45.19532 525.82812,0 32.03907,-45.19531 59.48829,-89.08203 81.2168,-131.39648 -683.161416,-2.85144 -2.37443,1.33873 -687.646483,0 z"
+       id="balloon-6"
+       class="color"
+       data-hue-adjust="-103" />
+    <path
+       style="fill:#00c000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 10.5,361.875 c 9,38.90625 24.8125,79.64844 46.335937,121.96289 21.523438,42.31445 665.917973,42.31445 687.646483,0 21.72852,-42.31445 37.73633,-83.05664 46.89258,-121.96289 -780.822986,-1.4186 1.29211,1.04135 -780.875,0 z"
+       id="balloon-5"
+       class="color"
+       data-hue-adjust="-154" />
+    <path
+       style="fill:#b0b000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 5.0390625,250.92773 C -0.6875,285.89844 1.5,322.96875 10.5,361.875 c 9,38.90625 771.71875,38.90625 780.875,0 9.15625,-38.90625 11.46094,-75.97656 5.7832,-110.94727 -792.3749743,0.4962 1.16403,0.25604 -792.1191375,0 z"
+       id="balloon-4"
+       class="color"
+       data-hue-adjust="-205" />
+    <path
+       style="fill:#c04000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 47.0625,152.57812 c -22.65625,30.50782 -36.296875,63.37891 -42.0234375,98.34961 -5.7265625,34.97071 797.7968775,34.97071 792.1191375,0 -5.67773,-34.9707 -19.33789,-67.84179 -42.11133,-98.34961 -704.333651,0.86022 -2.24119,2.8594 -707.98437,0 z"
+       id="balloon-3"
+       class="color"
+       data-hue-adjust="-257" />
+    <path
+       style="fill:#c00000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 143.17969,68.408203 C 101.39063,93.925781 69.71875,122.07031 47.0625,152.57812 c -22.65625,30.50782 730.75781,30.50782 707.98437,0 -22.77343,-30.50781 -54.66015,-58.652339 -96.79101,-84.169917 -489.32701,0.671867 -137.0468,2.160952 -515.07617,0 z"
+       id="balloon-2"
+       class="color"
+       data-hue-adjust="-308" />
+    <path
+       style="fill:#b000b0;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 300,0 c -63.125,20 -115.03125,42.890625 -156.82031,68.408203 -41.78906,25.517578 557.20703,25.517578 515.07617,0 C 616.125,42.890625 563.75,20 500,0 Z"
+       id="balloon-1"
+       class="color" />
+  </g>
+</svg>

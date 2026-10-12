@@ -5,6 +5,7 @@
 import * as Mode from "./mode.js"
 import * as Router from "./router.js"
 import * as Balloons from "./balloons.js"
+import { SkyBalloonsModule } from "./balloons.js"
 import * as Refresh from "./refresh.js"
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -12,10 +13,8 @@ document.addEventListener("DOMContentLoaded", function () {
 	
 	document.body.classList.add('html--ready');
 	document.body.classList.add('page--ready');
-
-	if('Promise' in window) {
-		Balloons.init();
-		Router.init();
-		Refresh.init();
-	}
+	const skyBalloonsModule = new SkyBalloonsModule();
+	skyBalloonsModule.init();
+	Router.init();
+	Refresh.init();
 });

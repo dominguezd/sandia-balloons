@@ -33,6 +33,7 @@
     <path
        style="fill:#94fcd9;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 300,0 C -205,160 8,505 375,900 l 50,0 C 792,505 1010,160 500,0 Z"
-       id="balloon"/>
+       id="balloon"
+       class="color"/>
   </g>
 </svg>

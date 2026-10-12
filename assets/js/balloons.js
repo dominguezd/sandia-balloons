@@ -5,93 +5,147 @@
 import Coordinate from "./coordinate.js";
 import { fetchXML } from "./fetch.js";
 import { moveTo, setPosition } from "./animate.js";
+import { randomBetween, RandomEventSignaler } from './rng.js'
+import Oklch from './oklch.js'
 
 const MAX_BALLOONS = 20;
-const MORE_BALLOONS_MONTH = 10;
-const MORE_BALLOONS = 1801;
-const STANDARD_BALLOONS = 3823;
-const BALLOON_MOVEMENT = 4517;
+const BALLOON_MOVEMENT = 15000;
+const BALLOON_INTERVAL = 9000;
 const MIN_BALLOON_WIDTH = 2;
 const MAX_BALLOON_WIDTH = 10;
+const BALLOON_HEIGHT_RANGE = MAX_BALLOON_WIDTH - MIN_BALLOON_WIDTH;
 const MIN_HUE = 0;
 const MAX_HUE = 360;
 const MIN_CHROMA = 0.08;
 const MAX_CHROMA = 0.16;
-const MIN_LIGHTNESS = 0.65;
-const MAX_LIGHTNESS = 0.85;
+const MIN_LIGHTNESS = 65;
+const MAX_LIGHTNESS = 85;
+const BALLOON_SPAWN_EVENT = "balloon:spawn";
 
 /**
- * Fetches a balloon SVG and uses that to populate the sky with balloons.
+ * This class is the entry point for starting the hot air balloons soaring over the sky.
+ * Follows the module format with an init function as to when to start.
  */
-export async function init() {
-	/** @type {HTMLElement} */
-	const balloonsCanvas = document.querySelector('.sky .sky__balloons');
-	const url = balloonsCanvas.getAttribute('data-balloon');
-	setBalloonCanvasHeight(balloonsCanvas);
-	const balloonHeightRange = MAX_BALLOON_WIDTH - MIN_BALLOON_WIDTH;
+export class SkyBalloonsModule {
+	/**
+	 * Quickly sets up the object with no changes to the DOM or outside environment.
+	 * Determines if we are in the month of October for extra balloons.
+	 */
+	constructor() {
+		const isBalloonFiestaMonth = this.currentMonth = (new Date()).getMonth() + 1;
 
-	const svg = await fetchXML(url);
+		this.balloonInterval = isBalloonFiestaMonth
+			? BALLOON_INTERVAL / 3
+			: BALLOON_INTERVAL * 2;
 
-	function createBalloon() {
-		if(document.hidden || randomBetween(0, 1) < .5) {
-			return;
-		}
-
-		if(balloonsCanvas.children.length > MAX_BALLOONS) {
-			return;
-		}
-
-		const cloth = svg.getElementById('balloon');
-		cloth.style.fill = generateColor();
-
-		/** @type {HTMLElement} */
-		const root = svg.documentElement.cloneNode(true);
-		const frame = document.createElement('div');
-		const n = randomBetween(0, 1);
-		const size = 1-(n*n);
-		const width = (size*balloonHeightRange)+MIN_BALLOON_WIDTH;
-		root.style.width = width + 'vw';
-
-		frame.appendChild(root);
-
-		frame.style.top = ((1-size)*100) + "%"
-
-		let added = false;
-		for(let i = 0; i < balloonsCanvas.children.length; ++i) {
-			const balloon = balloonsCanvas.children.item(i);
-			if(width < balloon.dataset.size) {
-				balloonsCanvas.insertBefore(frame, balloon);
-				added = true;
-				break;
-			}
-		}
-		if(!added) {
-			balloonsCanvas.appendChild(frame);
-		}
-
-		const rect = root.getBoundingClientRect();
-		const position = Coordinate.from({
-			x: -width - randomBetween(0, width),
-			y: 0
-		});
-
-		root.dataset.width = width;
-		frame.dataset.size = size;
-
-		if(!('ratio' in balloonsCanvas.dataset)) {
-			const ratio = (+root.attributes.height.value)/(+root.attributes.width.value);
-			balloonsCanvas.dataset.ratio = ratio;
-		}
-
-		setPosition(root, position);
-
-		moveRight(root, rect, position, true);
+		this.balloonSpeed = isBalloonFiestaMonth
+			? BALLOON_MOVEMENT / 3
+			: BALLOON_MOVEMENT;
 	}
 
-	const balloonRate = (new Date()).getMonth()+1 == MORE_BALLOONS_MONTH ? MORE_BALLOONS : STANDARD_BALLOONS;
+	/**
+	 * Hooks onto the DOM and begins the process to generate balloons onto the sky and animate them moving across.
+	 */
+	init() {
+		/** @type {HTMLElement} */
+		const balloonsCanvas = document.querySelector('.sky .sky__balloons');
+		setBalloonCanvasHeight(balloonsCanvas);
 
-	createBalloon();
-	setInterval(createBalloon, balloonRate);
+		const signaler = new RandomEventSignaler(balloonsCanvas, BALLOON_SPAWN_EVENT, this.balloonInterval);
+		signaler.init();
+
+		const balloonGenerator = new HotAirBalloonGenerator(
+			balloonsCanvas.getAttribute('data-balloon').split(',')
+		);
+
+		balloonsCanvas.addEventListener(BALLOON_SPAWN_EVENT, async () => {
+			if(balloonsCanvas.children.length > MAX_BALLOONS) {
+				return;
+			}
+
+			const root = await balloonGenerator.generate();
+
+			const n = randomBetween(0, 1);
+			const size = 1-(n*n);
+			const width = (size*BALLOON_HEIGHT_RANGE)+MIN_BALLOON_WIDTH;
+
+			root.style.width = width + 'vw';
+			root.dataset.width = width;
+
+			const frame = document.createElement('div');
+			frame.style.top = ((1-size)*100) + "%";
+			frame.dataset.size = size;
+			frame.appendChild(root);
+
+			addToCanvas(balloonsCanvas, frame);
+
+			const rect = root.getBoundingClientRect();
+			const position = Coordinate.withX(-width);
+
+			setPosition(root, position);
+			moveRight(root, rect, position, this.balloonSpeed, true);
+		});
+	}
+}
+
+class HotAirBalloonGenerator {
+	/**
+	 * 
+	 * @param {string[]} urls 
+	 */
+	constructor(urls) {
+		/**
+		 * @private
+		 * @type {Promise<XMLDocument>[]}
+		 */
+		this.__cache = [];
+
+		/**
+		 * @private
+		 * @type {Promise<void>}
+		 */
+		this.__fetchedOne = Promise.any(urls.map(url =>
+			fetchXML(url)
+				.then(xml => {
+					this.__cache.push(xml)
+				})
+		));
+	}
+
+	/**
+	 * Generates a balloon based on a random template and applies a random color to it.
+	 * @returns {Promise<SVGSVGElement>}
+	 */
+	async generate() {
+		const color = generateColor();
+		const template = await this.__chooseTemplate();
+
+		/** @type {SVGSVGElement} */
+		const svg = template.documentElement.cloneNode(true);
+
+		const sectionsToColor = svg.querySelectorAll('.color');
+		for(let section of sectionsToColor ) {
+			section.style.fill = color.toCSS();
+		}
+
+		return svg;
+	}
+
+	/**
+	 * Randomly picks a template from available cache
+	 * @private
+	 * @returns {Promise<XMLDocument>}
+	 */
+	async __chooseTemplate() {
+		await this.__fetchedOne;
+		if(this.__cache.length == 0) {
+			throw new Error("No templates to generate from");
+		} else if(this.__cache.length == 1) {
+			return await this.__cache[0];
+		} else {
+			return await this.__cache[Math.floor(Math.random() * this.urls.length)];
+		}
+	}
 }
 
 /**
@@ -116,35 +170,52 @@ function setBalloonCanvasHeight(balloonsCanvas) {
 
 /**
  * Generates a random color that has a good amount of saturation and light
- * @returns {String} random color in the form of HSL
+ * @returns {Oklch} random color in the form of HSL
  */
 function generateColor() {
-	const lightness = randomBetween(MIN_LIGHTNESS, MAX_LIGHTNESS);
-	const chroma = randomBetween(MIN_CHROMA, MAX_CHROMA);
-	const hue = Math.round(randomBetween(MIN_HUE, MAX_HUE));
-	return 'oklch(' + lightness + ' ' + chroma + ' ' + hue + ')';
+	const color = new Oklch(
+		randomBetween(MIN_LIGHTNESS, MAX_LIGHTNESS),
+		randomBetween(MIN_CHROMA, MAX_CHROMA),
+		Math.round(randomBetween(MIN_HUE, MAX_HUE))
+	);
+	return color;
 }
 
 /**
- * Generates a random Number between two Numbers
- * @param {Number} min - The minimum a Number could be
- * @param {Number} max - The maximum but not including the Number
- * @returns {Number}
+ * Adds a balloon to the canvas. Finds the correct position in the DOM by ordering the balloons by size.
+ * This ordering handles the z-layers.
+ * @param {HTMLElement} canvas 
+ * @param {HTMLElement} frame 
  */
-function randomBetween(min, max) {
-	return Math.random() * (max-min) + min
+function addToCanvas(canvas, frame) {
+	let added = false;
+	const size = frame.dataset.size;
+	for(let i = 0; i < canvas.children.length; ++i) {
+		const balloon = canvas.children.item(i);
+		if(size < balloon.dataset.size) {
+			canvas.insertBefore(frame, balloon);
+			added = true;
+			break;
+		}
+	}
+	if(!added) {
+		canvas.appendChild(frame);
+	}
 }
 
 /**
  * Sets up a element so that it will drift to the right until it reaches the end of the screen,
- * at which point, it will be removed from the DOM
+ * at which point, it will be removed from the DOM.
+ * Called recursively for each step, up or down.
  * @param {HTMLElement} elem - Target element to be moved
  * @param {DOMRect} rect - Bounding rectangle of the element
  * @param {Coordinate} initial - Current location of the Target element
+ * @param {number} speed - How long to travel this animation step (ms)
  * @param {boolean} up - Determines whether to drift up or down
  */
-async function moveRight(elem, rect, initial, up) {
+async function moveRight(elem, rect, initial, speed, up) {
 	const width = +elem.dataset.width;
+
 	if(initial.x > 100) {
 		const frame = elem.parentElement;
 		frame.parentElement.removeChild(frame);
@@ -155,7 +226,7 @@ async function moveRight(elem, rect, initial, up) {
 		? initial.add(Coordinate.create(width * 2, -rect.height / 3))
 		: initial.add(Coordinate.create(width * 2, rect.height / 3));
 
-	await moveTo(elem, initial, end, BALLOON_MOVEMENT);
-	await moveRight(elem, rect, end, !up);
+	await moveTo(elem, initial, end, speed);
+	await moveRight(elem, rect, end, speed, !up);
 	return;
 }

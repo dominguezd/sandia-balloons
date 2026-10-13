@@ -1,23 +1,10 @@
 {{/* This Source Code Form is subject to the terms of the Mozilla Public
 	* License, v. 2.0. If a copy of the MPL was not distributed with this
 	* file, You can obtain one at https://mozilla.org/MPL/2.0/. */}}
-<!DOCTYPE html>
-<html lang="{{ .Language }}">
-{{ partial "head.html" . }}
-<body>
-	{{ partial "refresh.html" . }}
-	<div class="stage">
-		<div class="cloud">
-			{{ partial "header.html" . }}
-			<div id="main" role="main">
-				<div class="cloud markdown">
-					<h1>{{ .Title }}</h1>
-					Posted: <time datetime="{{.Date}}">{{ .Date.Format "2006/01/02 15:04:05" }}</time>
-					{{ .Content }}
-				</div>
-			</div>
-		</div>
+{{ define "main" }}
+	<div class="cloud markdown">
+		<h1>{{ .Title }}</h1>
+		Posted: <time datetime="{{.Date}}">{{ .Date.Format "2006/01/02 15:04:05" }}</time>
+		{{ .Content }}
 	</div>
-	{{ partial "footer.html" . }}
-</body>
-</html>
+{{ end }}

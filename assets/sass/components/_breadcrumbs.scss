@@ -1,0 +1,56 @@
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+@use "../colors";
+
+$supportsNight: false !default;
+
+nav.breadcrumbs {
+	padding: 0 1em;
+	margin: 0 0 1em 0;
+
+	& > ol {
+		padding: 1em 0;
+		margin: 0;
+		display: inline-flex;
+		align-items: center;
+		gap: .5em;
+
+		& > li {
+			list-style: none;
+
+			&+li::before {
+				content: "/";
+				color: colors.$dark-red;
+				padding-right: .5em;
+				
+				@if $supportsNight {
+					.night & {
+						color: colors.$light-red;
+					}
+				}
+			}
+
+			& > a, & > span {
+				color: colors.$dark-red;
+				font-size: .8em;
+
+				.html--ready & {
+					transition: color .5s;
+				}
+				
+				@if $supportsNight {
+					.night & {
+						color: colors.$light-red;
+					}
+				}
+			}
+
+			& > span {
+				font-weight: bold;
+				font-size: 1em;
+			}
+		}
+	}
+}

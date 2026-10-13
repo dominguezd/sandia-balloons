@@ -5,6 +5,7 @@
 $supportsNight: false !default;
 
 @use "components/nav" with ($supportsNight: $supportsNight);
+@use "components/breadcrumbs" with ($supportsNight: $supportsNight);
 @use "components/markdown";
 @use "components/postings";
 @use "components/sky" with ($supportsNight: $supportsNight);

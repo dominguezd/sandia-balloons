@@ -9,9 +9,10 @@
 	<div class="stage">
 		<div class="cloud">
 			{{ partial "header.html" . }}
-			<div id="main" role="main">
+			<main id="main">
+			{{ partial "breadcrumbs.html" . }}
 			{{- block "main" . }}{{ end }}
-			</div>
+			</main>
 		</div>
 	</div>
 	{{ partial "footer.html" . }}

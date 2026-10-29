@@ -8,13 +8,15 @@ import { moveTo, setPosition } from "./animate.js";
 import { randomBetween, RandomEventSignaler } from './rng.js'
 import Oklch from './oklch.js'
 
-const MAX_BALLOONS = 20;
+const MAX_BALLOONS = 30;
 const BALLOON_MOVEMENT = 15000;
-const BALLOON_INTERVAL = 9000;
+const BALLOON_INTERVAL = 10000;
 const MIN_BALLOON_WIDTH = 2;
 const MAX_BALLOON_WIDTH = 10;
 const BALLOON_HEIGHT_RANGE = MAX_BALLOON_WIDTH - MIN_BALLOON_WIDTH;
 const BALLOON_SPAWN_EVENT = "balloon:spawn";
+
+let maxCount = 0;
 
 /**
  * This class is the entry point for starting the hot air balloons soaring over the sky.
@@ -29,11 +31,11 @@ export class SkyBalloonsModule {
 		const isBalloonFiestaMonth = this.currentMonth = (new Date()).getMonth() + 1;
 
 		this.balloonInterval = isBalloonFiestaMonth
-			? BALLOON_INTERVAL / 3
-			: BALLOON_INTERVAL * 2;
+			? BALLOON_INTERVAL / 2
+			: BALLOON_INTERVAL * 3;
 
 		this.balloonSpeed = isBalloonFiestaMonth
-			? BALLOON_MOVEMENT / 3
+			? BALLOON_MOVEMENT / 2
 			: BALLOON_MOVEMENT;
 	}
 
@@ -54,6 +56,7 @@ export class SkyBalloonsModule {
 
 		balloonsCanvas.addEventListener(BALLOON_SPAWN_EVENT, async () => {
 			if(balloonsCanvas.children.length > MAX_BALLOONS) {
+				console.warn(`Hit the maximum amount of balloons: ${MAX_BALLOONS}\nWaiting until current balloons clean up`);
 				return;
 			}
 

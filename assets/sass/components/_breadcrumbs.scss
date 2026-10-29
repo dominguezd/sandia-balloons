@@ -7,23 +7,22 @@
 $supportsNight: false !default;
 
 nav.breadcrumbs {
-	padding: 0 1em;
-	margin: 0 0 1em 0;
+	display: inline-block;
+	max-width: calc(100% - 3em);
 
 	& > ol {
-		padding: 1em 0;
+		padding: 0;
 		margin: 0;
-		display: inline-flex;
-		align-items: center;
-		gap: .5em;
+		display: flow-root;
 
 		& > li {
 			list-style: none;
+			float: left;
 
 			&+li::before {
 				content: "/";
 				color: colors.$dark-red;
-				padding-right: .5em;
+				margin: 0 0.5rem;
 				
 				@if $supportsNight {
 					.night & {

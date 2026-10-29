@@ -3,6 +3,7 @@
 	* file, You can obtain one at https://mozilla.org/MPL/2.0/. */}}
 {{ define "main" }}
 	<div class="cloud markdown">
+		{{ partial "breadcrumbs.html" . }}
 		<h1>{{ .Title }}</h1>
 		Posted: <time datetime="{{.Date}}">{{ .Date.Format "2006/01/02 15:04:05" }}</time>
 		{{ .Content }}

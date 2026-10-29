@@ -40,12 +40,11 @@ export function init() {
 		});
 	});
 
-	window.addEventListener('popstate', function () {
-		pager.load(window.location.href).then(function (page) {
-			removePageContent(mainContent);
-			tranferPageContent(page, mainContent);
-			window.dispatchEvent(new UIEvent('resize'));
-		});
+	window.addEventListener('popstate', async function () {
+		const page = await fetchHTML(window.location.href)
+		removePageContent(mainContent);
+		tranferPageContent(page, mainContent);
+		window.dispatchEvent(new UIEvent('resize'));
 	});
 }
 

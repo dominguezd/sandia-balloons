@@ -5,20 +5,7 @@
 import Coordinate from "./coordinate.js";
 import { fetchHTML, fetchXML } from "./fetch.js";
 import { moveTo, setPosition } from "./animate.js";
-
-function wait(milliseconds) {
-	return new Promise(function (resolve) {
-		setTimeout(function () {
-			resolve(milliseconds);
-		}, milliseconds);
-	});
-}
-
-function waitFor(milliseconds) {
-	return function () {
-		return wait(milliseconds)
-	}
-}
+import {wait, waitAfter} from "./wait.js"
 
 export async function init() {
 	/** @type {HTMLDivElement} */
@@ -131,7 +118,7 @@ export async function init() {
 				if(iconPosition.y >= height) {
 					let url = window.location.href;
 					try {
-						const [page] = await Promise.all([fetchHTML(url), stablizeIcon().then(waitFor(1500))])
+						const [page] = await Promise.all([fetchHTML(url), stablizeIcon().then(waitAfter(1500))])
 						removePageContent(mainContent);
 						await wait(100);
 						tranferPageContent(page, mainContent);

@@ -13,7 +13,10 @@ $supportsNight: false !default;
 	border-color: rgba(colors.$white, .9);
 	border-width: 1px 0;
 	padding: 1em 2em;
-	backdrop-filter: blur(8px);
+
+	& & {
+		backdrop-filter: blur(8px);
+	}
 
 	@if $supportsNight {
 		.night & {

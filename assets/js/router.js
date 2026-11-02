@@ -3,45 +3,50 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 
 import { fetchHTML } from "./fetch.js";
+import { wait } from "./wait.js";
 
 /**
  * Overrides all internal links so that all content will be loaded onto the page
  * without forcing a page refresh action.
  */
 export function init() {
-	var mainContent = document.getElementById('main');
+	const mainContent = document.getElementById('page-container');
+	const cloudContainer = document.getElementById('cloud-container');
 
-	document.addEventListener('click', function (e) {
+	document.addEventListener('click', async function (e) {
 		if(e.defaultPrevented || e.button !== 0) {
 			return;
 		}
 
-		var link = findNearestLink(e);
+		const link = findNearestLink(e);
 
 		if(link == null || window.location.hostname !== link.hostname) {
 			return;
 		}
 
 		e.preventDefault();
-		removePageContent(mainContent);
 
-		var url = link.href;
-		fetchHTML(url).then(function (page) {
+		const url = link.href;
+		try {
+			cloudContainer.classList.remove("joined");
+			const [page] = await Promise.all([fetchHTML(url), wait(300)]);
+			
 			if(url !== window.location.href) {
 				history.pushState('', page.title, url);
 			}
-
+			removePageContent(mainContent);
 			tranferPageContent(page, mainContent);
+			cloudContainer.classList.add("joined");
 			window.scrollTo({left: 0, top: 0})
 			window.dispatchEvent(new UIEvent('resize'));
-		}).catch(function (e) {
+		} catch(e) {
 			console.error(e)
 			window.location.href = url;
-		});
+		};
 	});
 
 	window.addEventListener('popstate', async function () {
-		const page = await fetchHTML(window.location.href)
+		const page = await fetchHTML(window.location.href);
 		removePageContent(mainContent);
 		tranferPageContent(page, mainContent);
 		window.dispatchEvent(new UIEvent('resize'));
@@ -65,7 +70,7 @@ function removePageContent(elem) {
  * @param {Document} dst New Page
  */
 function tranferPageContent(src, dst) {
-	var srcMain = src.getElementById('main');
+	var srcMain = src.getElementById('page-container');
 
 	for(var child = srcMain.firstChild; child != null; child = srcMain.firstChild) {
 		dst.appendChild(child);

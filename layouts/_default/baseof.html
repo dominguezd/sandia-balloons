@@ -7,9 +7,11 @@
 <body>
 	{{ partial "refresh.html" . }}
 	<div class="stage">
-		<div class="cloud">
+		<div id="cloud-container" class="joined">
+			<header class="cloud">
 			{{ partial "header.html" . }}
-			<main id="main">
+			</header>
+			<main id="page-container" class="cloud">
 			{{- block "main" . }}{{ end }}
 			</main>
 		</div>

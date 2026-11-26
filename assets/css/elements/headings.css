@@ -1,13 +1,9 @@
-// This Source Code Form is subject to the terms of the Mozilla Public
-// License, v. 2.0. If a copy of the MPL was not distributed with this
-// file, You can obtain one at https://mozilla.org/MPL/2.0/.
-
-@use "../colors";
-
-$supportsNight: false !default;
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 
 h1, h2, h3, h4, h5, h6 {
-	color: colors.$dark-red;
+	color: var(--dark-red);
 	margin: 0 0 .1em 0;
 
 	& + p {
@@ -15,9 +11,9 @@ h1, h2, h3, h4, h5, h6 {
 		break-before: avoid-page;
 	}
 
-	@if $supportsNight {
+	@media screen {
 		.night & {
-			color: colors.$light-red;
+			color: var(--light-red);
 		}
 	}
 
@@ -33,11 +29,11 @@ a {
 }
 
 h1 {
-	border-bottom: 1px colors.$dark-red solid;
+	border-bottom: 1px var(--dark-red) solid;
 
-	@if $supportsNight {
+	@media screen {
 		.night & {
-			border-bottom-color: colors.$light-red;
+			border-bottom-color: var(--light-red);
 		}
 	}
 }

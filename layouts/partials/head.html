@@ -14,9 +14,9 @@
 	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#97e1fb">
 	<link rel="manifest" href="/manifest.json">
 	<!-- <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet"> -->
-    {{ with resources.Get "sass/screen.scss" -}}
-	    {{- $opts := dict "transpiler" "dartsass" "targetPath" "css/screen.css" -}}
-		{{- with . | toCSS $opts -}}
+    {{ with resources.Get "css/screen.css" -}}
+	    {{- $opts := dict "targetPath" "css/screen.css" -}}
+		{{- with . | css.Build $opts -}}
 			{{- if hugo.IsDevelopment -}}
 				<link rel="stylesheet" href="{{ .RelPermalink }}" media="screen">
 			{{- else -}}
@@ -26,9 +26,9 @@
 			{{- end -}}
 		{{- end -}}
 	{{- end }}
-	{{ with resources.Get "sass/print.scss" -}}
-		{{- $opts := dict "transpiler" "dartsass" "targetPath" "css/print.css" -}}
-		{{- with . | toCSS $opts -}}
+	{{ with resources.Get "css/print.css" -}}
+		{{- $opts := dict "targetPath" "css/print.css" -}}
+		{{- with . | css.Build $opts -}}
 			{{- if hugo.IsDevelopment -}}
 				<link rel="stylesheet" href="{{ .RelPermalink }}" media="print">
 			{{- else -}}

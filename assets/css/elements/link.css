@@ -1,18 +1,14 @@
-// This Source Code Form is subject to the terms of the Mozilla Public
-// License, v. 2.0. If a copy of the MPL was not distributed with this
-// file, You can obtain one at https://mozilla.org/MPL/2.0/.
-
-@use "../colors";
-
-$supportsNight: false !default;
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 
 a {
 	text-decoration: underline;
-	color: colors.$dark-blue;
+	color: var(--dark-blue);
 
-	@if $supportsNight {
+	@media screen {
 		.night & {
-			color: colors.$light-blue;
+			color: var(--light-blue);
 		}
 	}
 }

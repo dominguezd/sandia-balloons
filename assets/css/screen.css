@@ -2,11 +2,9 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 
-$supportsNight: true;
-
-@use "colors";
-@use "elements" with ($supportsNight: $supportsNight);
-@use "components" with ($supportsNight: $supportsNight);
+@import "colors.css";
+@import "elements.css";
+@import "components.css";
 
 html, body {
   -webkit-text-size-adjust: 100%;
@@ -35,20 +33,18 @@ html, body {
 		margin: 0;
 	}
 	&.joined > header {
-		border-bottom-color: rgba(colors.$white, 0);
+		border-bottom-color: oklab(from var(--white) l a b / 0);
 		border-bottom-left-radius: 0;
 		border-bottom-right-radius: 0;
 		transition-delay: 200ms, 250ms, 250ms;
 		transition-timing-function: ease-in, ease-in, ease-in, ease-in;
 
-		@if $supportsNight {
-			.night & {
-				border-bottom-color: rgba(colors.$off-black, 0);
-			}
+		.night & {
+			border-bottom-color: oklab(from var(--off-black) l a b / 0);
 		}
 	}
 	&.joined > main {
-		border-top-color: rgba(colors.$white, 0);
+		border-top-color: oklab(from var(--white) l a b / 0);
 		border-top-left-radius: 0;
 		border-top-right-radius: 0;
 		transform: translateY(0);
@@ -57,19 +53,19 @@ html, body {
 		transition-timing-function: ease-in, ease-in, ease-in, ease-in, ease-in, ease-in;
 
 		.night & {
-			border-top-color: rgba(colors.$off-black, 0);
+			border-top-color: oklab(from var(--off-black) l a b / 0);
 		}
 	}
 }
 
 body {
-	color: colors.$light-font;
-	background-color: colors.$light-brown;
+	color: var(--light-font);
+	background-color: var(--light-brown);
 	font-family: sans-serif;
 	margin: 0;
 
 	&.night {
-		color: colors.$dark-font;
+		color: var(--dark-font);
 	}
 
 	& > .stage {

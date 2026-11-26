@@ -1,10 +1,6 @@
-// This Source Code Form is subject to the terms of the Mozilla Public
-// License, v. 2.0. If a copy of the MPL was not distributed with this
-// file, You can obtain one at https://mozilla.org/MPL/2.0/.
-
-@use "../colors";
-
-$supportsNight: false !default;
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 
 nav.breadcrumbs {
 	display: inline-block;
@@ -21,27 +17,27 @@ nav.breadcrumbs {
 
 			&+li::before {
 				content: "/";
-				color: colors.$dark-red;
+				color: var(--dark-red);
 				margin: 0 0.5rem;
 				
-				@if $supportsNight {
+				@media screen {
 					.night & {
-						color: colors.$light-red;
+						color: var(--light-red);
 					}
 				}
 			}
 
 			& > a, & > span {
-				color: colors.$dark-red;
+				color: var(--dark-red);
 				font-size: .8em;
 
 				.html--ready & {
 					transition: color .5s;
 				}
 				
-				@if $supportsNight {
+				@media screen {
 					.night & {
-						color: colors.$light-red;
+						color: var(--light-red);
 					}
 				}
 			}

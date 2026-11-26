@@ -2,15 +2,13 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 
-$supportsNight: false;
-
-@use "colors";
-@use "elements/headings";
-@use "components/markdown";
-@use "components/chroma";
+@import "colors.css";
+@import "elements/headings.css";
+@import "components/markdown.css";
+@import "components/chroma.css";
 
 body {
-	color: colors.$light-font;
+	color: var(--light-font);
 	font-family: sans-serif;
 	font-size: 12px;
 }

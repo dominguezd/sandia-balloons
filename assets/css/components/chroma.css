@@ -1,21 +1,17 @@
-// This Source Code Form is subject to the terms of the Mozilla Public
-// License, v. 2.0. If a copy of the MPL was not distributed with this
-// file, You can obtain one at https://mozilla.org/MPL/2.0/.
-
-@use "../colors";
-
-$supportsNight: false !default;
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 
 .chroma {
-	// Background
-	color: colors.$light-font;
-	background-color: rgba(colors.$white, .6);
+	/* Background */
+	color: var(--light-font);
+	background-color: oklab(from var(--white) l a b / .6);
 	overflow-x: auto;
 
-	@if $supportsNight {
+	@media screen {
 		.night & {
-			color: colors.$dark-font;
-			background-color: rgba(colors.$off-black, .3);
+			color: var(--dark-font);
+			background-color: oklab(from var(--off-black) l a b / .3);
 		}
 	}
 
@@ -23,17 +19,17 @@ $supportsNight: false !default;
 		background-color: transparent;
 	}
 
-	// Error
+	/* Error */
 	.err {
-		color: colors.$dark-red;
-		@if $supportsNight {
+		color: var(--dark-red);
+		@media screen {
 			.night & {
-				color: colors.$light-red;
+				color: var(--light-red);
 			}
 		}
 	}
 
-	// LineTableTD
+	/* LineTableTD */
 	.lntd {
 		vertical-align: top;
 		padding: 0;
@@ -48,16 +44,16 @@ $supportsNight: false !default;
 			flex-grow: 1;
 			padding-left: 1em;
 
-			background-color: colors.$white;
-			@if $supportsNight {
+			background-color: var(--white);
+			@media screen {
 				.night & {
-					background-color: colors.$off-black;
+					background-color: var(--off-black);
 				}
 			}
 		}
 	}
 
-	// LineTable
+	/* LineTable */
 	.lntable {
 		border-spacing: 0;
 		padding: 0;
@@ -70,556 +66,556 @@ $supportsNight: false !default;
 		}
 	}
 
-	// LineHighlight
+	/* LineHighlight */
 	.hl {
 		display: block;
 		width: 100%;
-		color: colors.$light-font;
-		@if $supportsNight {
+		color: var(--light-font);
+		@media screen {
 			.night & {
-				color: colors.$dark-font;
+				color: var(--dark-font);
 			}
 		}
 	}
 
-	// LineNumbersTable
+	/* LineNumbersTable */
 	.lnt {
 		margin-right: .5em;
 		padding: 0 .5em 0 .5em;
-		color: colors.$light-font;
+		color: var(--light-font);
 		display: block;
-		@if $supportsNight {
+		@media screen {
 			.night & {
-				color: colors.$dark-font;
+				color: var(--dark-font);
 			}
 		}
 	}
 
-	// LineNumbers
+	/* LineNumbers */
 	.ln {
 		margin-right: .5em;
 		padding: 0 .5em 0 .5em;
-		color: colors.$light-font;
-		@if $supportsNight {
+		color: var(--light-font);
+		@media screen {
 			.night & {
-				color: colors.$dark-font;
+				color: var(--dark-font);
 			}
 		}
 	}
 
-	// Keyword
+	/* Keyword */
 	.k {
 		font-weight: bold;
-		color: colors.$dark-blue;
-		@if $supportsNight {
+		color: var(--dark-blue);
+		@media screen {
 			.night & {
-				color: colors.$light-blue;
+				color: var(--light-blue);
 			}
 		}
 	}
 
-	// KeywordConstant
+	/* KeywordConstant */
 	.kc {
 		font-weight: bold;
-		color: colors.$dark-blue;
-		@if $supportsNight {
+		color: var(--dark-blue);
+		@media screen {
 			.night & {
-				color: colors.$light-blue;
+				color: var(--light-blue);
 			}
 		}
 	}
 
-	// KeywordDeclaration
+	/* KeywordDeclaration */
 	.kd {
 		font-weight: bold;
-		color: colors.$dark-blue;
-		@if $supportsNight {
+		color: var(--dark-blue);
+		@media screen {
 			.night & {
-				color: colors.$light-blue;
+				color: var(--light-blue);
 			}
 		}
 	}
 
-	// KeywordNamespace
+	/* KeywordNamespace */
 	.kn {
 		font-weight: bold;
-		color: colors.$dark-red;
-		@if $supportsNight {
+		color: var(--dark-red);
+		@media screen {
 			.night & {
-				color: colors.$light-red;
+				color: var(--light-red);
 			}
 		}
 	}
 
-	// KeywordPseudo
+	/* KeywordPseudo */
 	.kp {
 		font-weight: bold;
-		color: colors.$dark-blue;
-		@if $supportsNight {
+		color: var(--dark-blue);
+		@media screen {
 			.night & {
-				color: colors.$light-blue;
+				color: var(--light-blue);
 			}
 		}
 	}
 
-	// KeywordReserved
+	/* KeywordReserved */
 	.kr {
 		font-weight: bold;
-		color: colors.$dark-blue;
-		@if $supportsNight {
+		color: var(--dark-blue);
+		@media screen {
 			.night & {
-				color: colors.$light-blue;
+				color: var(--light-blue);
 			}
 		}
 	}
 
-	// KeywordType
+	/* KeywordType */
 	.kt {
 		font-weight: bold;
-		color: colors.$dark-blue;
-		@if $supportsNight {
+		color: var(--dark-blue);
+		@media screen {
 			.night & {
-				color: colors.$light-blue;
+				color: var(--light-blue);
 			}
 		}
 	}
 
-	// NameAttribute
+	/* NameAttribute */
 	.na {
-		color: colors.$dark-yellow;
-		@if $supportsNight {
+		color: var(--dark-yellow);
+		@media screen {
 			.night & {
-				color: colors.$light-yellow;
+				color: var(--light-yellow);
 			}
 		}
 	}
 
-	// NameClass
+	/* NameClass */
 	.nc {
-		color: colors.$dark-yellow;
-		@if $supportsNight {
+		color: var(--dark-yellow);
+		@media screen {
 			.night & {
-				color: colors.$light-yellow;
+				color: var(--light-yellow);
 			}
 		}
 	}
 
-	// NameConstant
+	/* NameConstant */
 	.no {
-		color: colors.$dark-blue;
-		@if $supportsNight {
+		color: var(--dark-blue);
+		@media screen {
 			.night & {
-				color: colors.$light-blue;
+				color: var(--light-blue);
 			}
 		}
 	}
 
-	// NameDecorator
+	/* NameDecorator */
 	.nd {
-		color: colors.$dark-yellow;
-		@if $supportsNight {
+		color: var(--dark-yellow);
+		@media screen {
 			.night & {
-				color: colors.$light-yellow;
+				color: var(--light-yellow);
 			}
 		}
 	}
 
-	// NameException
+	/* NameException */
 	.ne {
-		color: colors.$dark-yellow;
-		@if $supportsNight {
+		color: var(--dark-yellow);
+		@media screen {
 			.night & {
-				color: colors.$light-yellow;
+				color: var(--light-yellow);
 			}
 		}
 	}
 
-		// NameFunction
+		/* NameFunction */
 	.nf {
-		color: colors.$dark-yellow;
-		@if $supportsNight {
+		color: var(--dark-yellow);
+		@media screen {
 			.night & {
-				color: colors.$light-yellow;
+				color: var(--light-yellow);
 			}
 		}
 	}
 
-	// NameOther
+	/* NameOther */
 	.nx {
-		color: colors.$dark-yellow;
-		@if $supportsNight {
+		color: var(--dark-yellow);
+		@media screen {
 			.night & {
-				color: colors.$light-yellow;
+				color: var(--light-yellow);
 			}
 		}
 	}
 
-	// NameTag
+	/* NameTag */
 	.nt {
-		color: colors.$dark-red;
-		@if $supportsNight {
+		color: var(--dark-red);
+		@media screen {
 			.night & {
-				color: colors.$light-red;
+				color: var(--light-red);
 			}
 		}
 	}
 
-	// Literal
+	/* Literal */
 	.l {
-		color: colors.$dark-purple;
-		@if $supportsNight {
+		color: var(--dark-purple);
+		@media screen {
 			.night & {
-				color: colors.$light-purple;
+				color: var(--light-purple);
 			}
 		}
 	}
 
-	// LiteralDate
+	/* LiteralDate */
 	.ld {
-		color: colors.$dark-green;
-		@if $supportsNight {
+		color: var(--dark-green);
+		@media screen {
 			.night & {
-				color: colors.$light-green;
+				color: var(--light-green);
 			}
 		}
 	}
 
-	// LiteralString
+	/* LiteralString */
 	.s {
-		color: colors.$dark-green;
-		@if $supportsNight {
+		color: var(--dark-green);
+		@media screen {
 			.night & {
-				color: colors.$light-green;
+				color: var(--light-green);
 			}
 		}
 	}
 
-	// LiteralStringAffix
+	/* LiteralStringAffix */
 	.sa {
-		color: colors.$dark-green;
-		@if $supportsNight {
+		color: var(--dark-green);
+		@media screen {
 			.night & {
-				color: colors.$light-green;
+				color: var(--light-green);
 			}
 		}
 	}
 
-	// LiteralStringBacktick
+	/* LiteralStringBacktick */
 	.sb {
-		color: colors.$dark-green;
-		@if $supportsNight {
+		color: var(--dark-green);
+		@media screen {
 			.night & {
-				color: colors.$light-green;
+				color: var(--light-green);
 			}
 		}
 	}
 
-	// LiteralStringChar
+	/* LiteralStringChar */
 	.sc {
-		color: colors.$dark-green;
-		@if $supportsNight {
+		color: var(--dark-green);
+		@media screen {
 			.night & {
-				color: colors.$light-green;
+				color: var(--light-green);
 			}
 		}
 	}
 
-	// LiteralStringDelimiter
+	/* LiteralStringDelimiter */
 	.dl {
-		color: colors.$dark-green;
-		@if $supportsNight {
+		color: var(--dark-green);
+		@media screen {
 			.night & {
-				color: colors.$light-green;
+				color: var(--light-green);
 			}
 		}
 	}
 
-	// LiteralStringDoc
+	/* LiteralStringDoc */
 	.sd {
-		color: colors.$dark-green;
-		@if $supportsNight {
+		color: var(--dark-green);
+		@media screen {
 			.night & {
-				color: colors.$light-green;
+				color: var(--light-green);
 			}
 		}
 	}
 
-	// LiteralStringDouble
+	/* LiteralStringDouble */
 	.s2 {
-		color: colors.$dark-green;
-		@if $supportsNight {
+		color: var(--dark-green);
+		@media screen {
 			.night & {
-				color: colors.$light-green;
+				color: var(--light-green);
 			}
 		}
 	}
 
-	// LiteralStringEscape
+	/* LiteralStringEscape */
 	.se {
-		color: colors.$dark-purple;
-		@if $supportsNight {
+		color: var(--dark-purple);
+		@media screen {
 			.night & {
-				color: colors.$light-purple;
+				color: var(--light-purple);
 			}
 		}
 	}
 
-	// LiteralStringHeredoc
+	/* LiteralStringHeredoc */
 	.sh {
-		color: colors.$dark-green;
-		@if $supportsNight {
+		color: var(--dark-green);
+		@media screen {
 			.night & {
-				color: colors.$light-green;
+				color: var(--light-green);
 			}
 		}
 	}
 
-	// LiteralStringInterpol
+	/* LiteralStringInterpol */
 	.si {
-		color: colors.$dark-green;
-		@if $supportsNight {
+		color: var(--dark-green);
+		@media screen {
 			.night & {
-				color: colors.$light-green;
+				color: var(--light-green);
 			}
 		}
 	}
 
-	// LiteralStringOther
+	/* LiteralStringOther */
 	.sx {
-		color: colors.$dark-green;
-		@if $supportsNight {
+		color: var(--dark-green);
+		@media screen {
 			.night & {
-				color: colors.$light-green;
+				color: var(--light-green);
 			}
 		}
 	}
 
-	// LiteralStringRegex
+	/* LiteralStringRegex */
 	.sr {
-		color: colors.$dark-green;
-		@if $supportsNight {
+		color: var(--dark-green);
+		@media screen {
 			.night & {
-				color: colors.$light-green;
+				color: var(--light-green);
 			}
 		}
 	}
 
-	// LiteralStringSingle
+	/* LiteralStringSingle */
 	.s1 {
-		color: colors.$dark-green;
-		@if $supportsNight {
+		color: var(--dark-green);
+		@media screen {
 			.night & {
-				color: colors.$light-green;
+				color: var(--light-green);
 			}
 		}
 	}
 
-	// LiteralStringSymbol
+	/* LiteralStringSymbol */
 	.ss {
-		color: colors.$dark-green;
-		@if $supportsNight {
+		color: var(--dark-green);
+		@media screen {
 			.night & {
-				color: colors.$light-green;
+				color: var(--light-green);
 			}
 		}
 	}
 
-	// LiteralNumber
+	/* LiteralNumber */
 	.m {
-		color: colors.$dark-purple;
-		@if $supportsNight {
+		color: var(--dark-purple);
+		@media screen {
 			.night & {
-				color: colors.$light-purple;
+				color: var(--light-purple);
 			}
 		}
 	}
 
-	// LiteralNumberBin
+	/* LiteralNumberBin */
 	.mb {
-		color: colors.$dark-purple;
-		@if $supportsNight {
+		color: var(--dark-purple);
+		@media screen {
 			.night & {
-				color: colors.$light-purple;
+				color: var(--light-purple);
 			}
 		}
 	}
 
-	// LiteralNumberFloat
+	/* LiteralNumberFloat */
 	.mf {
-		color: colors.$dark-purple;
-		@if $supportsNight {
+		color: var(--dark-purple);
+		@media screen {
 			.night & {
-				color: colors.$light-purple;
+				color: var(--light-purple);
 			}
 		}
 	}
 
-	// LiteralNumberHex
+	/* LiteralNumberHex */
 	.mh {
-		color: colors.$dark-purple;
-		@if $supportsNight {
+		color: var(--dark-purple);
+		@media screen {
 			.night & {
-				color: colors.$light-purple;
+				color: var(--light-purple);
 			}
 		}
 	}
 
-	// LiteralNumberInteger
+	/* LiteralNumberInteger */
 	.mi {
-		color: colors.$dark-purple;
-		@if $supportsNight {
+		color: var(--dark-purple);
+		@media screen {
 			.night & {
-				color: colors.$light-purple;
+				color: var(--light-purple);
 			}
 		}
 	}
 
-	// LiteralNumberIntegerLong
+	/* LiteralNumberIntegerLong */
 	.il {
-		color: colors.$dark-purple;
-		@if $supportsNight {
+		color: var(--dark-purple);
+		@media screen {
 			.night & {
-				color: colors.$light-purple;
+				color: var(--light-purple);
 			}
 		}
 	}
 
-	// LiteralNumberOct
+	/* LiteralNumberOct */
 	.mo {
-		color: colors.$dark-purple;
-		@if $supportsNight {
+		color: var(--dark-purple);
+		@media screen {
 			.night & {
-				color: colors.$light-purple;
+				color: var(--light-purple);
 			}
 		}
 	}
 
-	// Operator
+	/* Operator */
 	.o {
-		color: colors.$dark-red;
-		@if $supportsNight {
+		color: var(--dark-red);
+		@media screen {
 			.night & {
-				color: colors.$light-red;
+				color: var(--light-red);
 			}
 		}
 	}
 
-	// OperatorWord
+	/* OperatorWord */
 	.ow {
-		color: colors.$dark-red;
-		@if $supportsNight {
+		color: var(--dark-red);
+		@media screen {
 			.night & {
-				color: colors.$light-red;
+				color: var(--light-red);
 			}
 		}
 	}
 
-	// Comment
+	/* Comment */
 	.c {
-		color: colors.$dark-brown;
-		@if $supportsNight {
+		color: var(--dark-brown);
+		@media screen {
 			.night & {
-				color: colors.$light-brown;
+				color: var(--light-brown);
 			}
 		}
 	}
 
-	// CommentHashbang
+	/* CommentHashbang */
 	.ch {
-		color: colors.$dark-brown;
-		@if $supportsNight {
+		color: var(--dark-brown);
+		@media screen {
 			.night & {
-				color: colors.$light-brown;
+				color: var(--light-brown);
 			}
 		}
 	}
 
-	// CommentMultiline
+	/* CommentMultiline */
 	.cm {
-		color: colors.$dark-brown;
-		@if $supportsNight {
+		color: var(--dark-brown);
+		@media screen {
 			.night & {
-				color: colors.$light-brown;
+				color: var(--light-brown);
 			}
 		}
 	}
 
-	// CommentSingle
+	/* CommentSingle */
 	.c1 {
-		color: colors.$dark-brown;
-		@if $supportsNight {
+		color: var(--dark-brown);
+		@media screen {
 			.night & {
-				color: colors.$light-brown;
+				color: var(--light-brown);
 			}
 		}
 	}
 
-	// CommentSpecial
+	/* CommentSpecial */
 	.cs {
-		color: colors.$dark-brown;
-		@if $supportsNight {
+		color: var(--dark-brown);
+		@media screen {
 			.night & {
-				color: colors.$light-brown;
+				color: var(--light-brown);
 			}
 		}
 	}
 
-	// CommentPreproc
+	/* CommentPreproc */
 	.cp {
-		color: colors.$dark-brown;
-		@if $supportsNight {
+		color: var(--dark-brown);
+		@media screen {
 			.night & {
-				color: colors.$light-brown;
+				color: var(--light-brown);
 			}
 		}
 	}
 
-	// CommentPreprocFile
+	/* CommentPreprocFile */
 	.cpf {
-		color: colors.$dark-brown;
-		@if $supportsNight {
+		color: var(--dark-brown);
+		@media screen {
 			.night & {
-				color: colors.$light-brown;
+				color: var(--light-brown);
 			}
 		}
 	}
 
-	// GenericDeleted
+	/* GenericDeleted */
 	.gd {
-		color: colors.$dark-red;
-		@if $supportsNight {
+		color: var(--dark-red);
+		@media screen {
 			.night & {
-				color: colors.$light-red;
+				color: var(--light-red);
 			}
 		}
 	}
 
-	// GenericEmph
+	/* GenericEmph */
 	.ge {
 		font-style: italic;
 	}
 
-	// GenericInserted
+	/* GenericInserted */
 	.gi {
-		color: colors.$dark-yellow;
-		@if $supportsNight {
+		color: var(--dark-yellow);
+		@media screen {
 			.night & {
-				color: colors.$light-yellow;
+				color: var(--light-yellow);
 			}
 		}
 	}
 
-	// GenericStrong
+	/* GenericStrong */
 	.gs {
 		font-weight: bold;
 	}
 
-	// GenericSubheading
+	/* GenericSubheading */
 	.gu {
-		color: colors.$dark-brown;
-		@if $supportsNight {
+		color: var(--dark-brown);
+		@media screen {
 			.night & {
-				color: colors.$light-brown;
+				color: var(--light-brown);
 			}
 		}
 	}

@@ -1,6 +1,6 @@
-// This Source Code Form is subject to the terms of the Mozilla Public
-// License, v. 2.0. If a copy of the MPL was not distributed with this
-// file, You can obtain one at https://mozilla.org/MPL/2.0/.
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 
 .refresh {
 	position: absolute;
@@ -9,46 +9,76 @@
 	z-index: 2;
 	transform: translateY(-100%);
 
-	@mixin refresh-animation($name, $field) {
-		@keyframes #{$name} {
-			0% {
-				#{$field}: hsl(0, 50%, 40%);
-			}
-			10% {
-				#{$field}: hsl(252, 50%, 40%);
-			}
-			20% {
-				#{$field}: hsl(144, 50%, 40%);
-			}
-			30% {
-				#{$field}: hsl(36, 50%, 40%);
-			}
-			40% {
-				#{$field}: hsl(288, 50%, 40%);
-			}
-			50% {
-				#{$field}: hsl(180, 50%, 40%);
-			}
-			60% {
-				#{$field}: hsl(72, 50%, 40%);
-			}
-			70% {
-				#{$field}: hsl(324, 50%, 40%);
-			}
-			80% {
-				#{$field}: hsl(216, 50%, 40%);
-			}
-			90% {
-				#{$field}: hsl(108, 50%, 40%);
-			}
-			100% {
-				#{$field}: hsl(0, 50%, 40%);
-			}
+	@keyframes refresh-icon-cycle {
+		0% {
+			background-color: hsl(0, 50%, 40%);
+		}
+		10% {
+			background-color: hsl(252, 50%, 40%);
+		}
+		20% {
+			background-color: hsl(144, 50%, 40%);
+		}
+		30% {
+			background-color: hsl(36, 50%, 40%);
+		}
+		40% {
+			background-color: hsl(288, 50%, 40%);
+		}
+		50% {
+			background-color: hsl(180, 50%, 40%);
+		}
+		60% {
+			background-color: hsl(72, 50%, 40%);
+		}
+		70% {
+			background-color: hsl(324, 50%, 40%);
+		}
+		80% {
+			background-color: hsl(216, 50%, 40%);
+		}
+		90% {
+			background-color: hsl(108, 50%, 40%);
+		}
+		100% {
+			background-color: hsl(0, 50%, 40%);
 		}
 	}
-
-	@include refresh-animation(refresh-icon-cycle, background-color);
-	@include refresh-animation(refresh-balloon-cycle, fill);
+	@keyframes refresh-balloon-cycle {
+		0% {
+			fill: hsl(0, 50%, 40%);
+		}
+		10% {
+			fill: hsl(252, 50%, 40%);
+		}
+		20% {
+			fill: hsl(144, 50%, 40%);
+		}
+		30% {
+			fill: hsl(36, 50%, 40%);
+		}
+		40% {
+			fill: hsl(288, 50%, 40%);
+		}
+		50% {
+			fill: hsl(180, 50%, 40%);
+		}
+		60% {
+			fill: hsl(72, 50%, 40%);
+		}
+		70% {
+			fill: hsl(324, 50%, 40%);
+		}
+		80% {
+			fill: hsl(216, 50%, 40%);
+		}
+		90% {
+			fill: hsl(108, 50%, 40%);
+		}
+		100% {
+			fill: hsl(0, 50%, 40%);
+		}
+	}
 
 	.refresh__icon {
 		margin: 5em auto 0 auto;

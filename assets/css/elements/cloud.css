@@ -1,16 +1,12 @@
-// This Source Code Form is subject to the terms of the Mozilla Public
-// License, v. 2.0. If a copy of the MPL was not distributed with this
-// file, You can obtain one at https://mozilla.org/MPL/2.0/.
-
-@use "../colors";
-
-$supportsNight: false !default;
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 
 .cloud {
 	border-radius: .5em;
-	background-color: rgba(colors.$white, .3);
+	background-color: oklab(from var(--white) l a b / .3);
 	border-style: solid;
-	border-color: rgba(colors.$white, .9);
+	border-color: oklab(from var(--white) l a b / .9);
 	border-width: 1px 0;
 	padding: 1em 2em;
 
@@ -18,10 +14,10 @@ $supportsNight: false !default;
 		backdrop-filter: blur(8px);
 	}
 
-	@if $supportsNight {
+	@media screen {
 		.night & {
-			background-color: rgba(colors.$off-black, .3);
-			border-color: rgba(colors.$off-black, .9);
+			background-color: oklab(from var(--off-black) l a b / .3);
+			border-color: oklab(from var(--off-black) l a b / .9);
 		}
 	}
 
@@ -34,11 +30,11 @@ $supportsNight: false !default;
 	}
 
 	.cloud {
-		background-color: rgba(colors.$white, .6);
+		background-color: oklab(from var(--white) l a b / .6);
 
-		@if $supportsNight {
+		@media screen {
 			.night & {
-				background-color: rgba(colors.$off-black, .6);
+				background-color: oklab(from var(--off-black) l a b / .6);
 			}
 		}
 	}

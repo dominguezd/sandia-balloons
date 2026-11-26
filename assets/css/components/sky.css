@@ -1,10 +1,6 @@
-// This Source Code Form is subject to the terms of the Mozilla Public
-// License, v. 2.0. If a copy of the MPL was not distributed with this
-// file, You can obtain one at https://mozilla.org/MPL/2.0/.
-
-@use "../colors";
-
-$supportsNight: false !default;
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 
 .sky {
 	.sky__box {
@@ -12,14 +8,14 @@ $supportsNight: false !default;
 		position: fixed;
 		height: 100vh;
 		width: 100%;
-		background-color: colors.$sky-blue;
+		background-color: var(--sky-blue);
 
 		.html--ready & {
 			transition: .5s background-color, .5s color;
 		}
 
 		.night & {
-			background-color: colors.$night-blue;
+			background-color: var(--night-blue);
 		}
 	}
 
@@ -54,7 +50,7 @@ $supportsNight: false !default;
 			height: 40rem;
 			width: 40rem;
 			max-width: 50%;
-			background: radial-gradient(circle closest-side at center, colors.$light-yellow 0%, colors.$white 10%, transparent 100%);
+			background: radial-gradient(circle closest-side at center, var(--light-yellow) 0%, var(--white) 10%, transparent 100%);
 			transform: translateX(-50%) translateY(-100%);
 		}
 
@@ -65,7 +61,7 @@ $supportsNight: false !default;
 			height: 20rem;
 			width: 20rem;
 			max-width: 15%;
-			background: radial-gradient(circle closest-side at center, rgba(colors.$white, .8) 0%, rgba(colors.$white, .8) 80%, transparent 100%);
+			background: radial-gradient(circle closest-side at center, oklab(from var(--white) l a b / .8) 0%, oklab(from var(--white) l a b / .8) 80%, transparent 100%);
 			transform: translateX(-50%) translateY(-100%);
 		}
 
@@ -73,7 +69,7 @@ $supportsNight: false !default;
 			transition: transform 1s;
 		}
 
-		@if $supportsNight {
+		@media screen {
 			& .sky__sun {
 				transform: translateX(-50%) translateY(-50%);
 			}
